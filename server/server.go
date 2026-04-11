@@ -1,0 +1,26 @@
+package runServer
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+)
+
+var s = http.Server{
+	Addr:         ":8001",
+	ReadTimeout:  5 * time.Second,
+	WriteTimeout: 10 * time.Second,
+	IdleTimeout:  120 * time.Second,
+}
+
+func RunServer(handler http.Handler) {
+
+	err := http.ListenAndServe(s.Addr, handler)
+	if err != nil {
+		fmt.Printf("An error occured while starting the Server : %v\n", err)
+		fmt.Println("Please restart the server.")
+		return
+	}
+	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
+}

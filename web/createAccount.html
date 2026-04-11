@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <style>
+      :root {
+        --bg: #eef2ff;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --accent: #b45309;
+        --accent-dark: #92400e;
+        --border: #d1d5db;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(
+          circle at top left,
+          #fff7ed 0%,
+          #ecfeff 55%,
+          #eef2ff 100%
+        );
+        color: var(--text);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 560px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 1.7rem;
+      }
+
+      p {
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .name-row {
+        display: grid;
+        gap: 12px;
+      }
+
+      @media (min-width: 640px) {
+        .name-row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 1rem;
+      }
+
+      button {
+        margin-top: 8px;
+        border: 0;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        background: var(--accent);
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: var(--accent-dark);
+      }
+
+      .helper {
+        margin-top: 14px;
+        font-size: 0.95rem;
+      }
+
+      .helper a {
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .helper a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Create New Account</h1>
+      <p>Fill in your details to open your new account.</p>
+
+      <form
+        action="#"
+        method="post">
+        <div class="name-row">
+          <label>
+            First Name
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First name"
+              required />
+          </label>
+
+          <label>
+            Last Name
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last name"
+              required />
+          </label>
+        </div>
+
+        <label>
+          User Name
+          <input
+            type="text"
+            name="username"
+            placeholder="Choose a username"
+            required />
+        </label>
+
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required />
+        </label>
+
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            placeholder="Create a password"
+            required />
+        </label>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p class="helper">
+        Already have an account? <a href="signIn.html">Sign in</a>
+      </p>
+    </main>
+  </body>
+</html>
