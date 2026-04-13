@@ -1,13 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"log/slog"
 	"serv-test/database"
 	runServer "serv-test/server"
 )
 
+type app struct {
+	Logger *slog.Logger
+}
+
 func main() {
-	fmt.Println("starting the web server...")
 
 	database.DatabaseConnect()
 	mux := RoutHandlers()

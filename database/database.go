@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 	"database/sql"
-	"fmt"
+	logger "serv-test/log"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -22,5 +22,6 @@ func DatabaseConnect() {
 	if err := db.PingContext(ctx); err != nil {
 		panic(err)
 	}
-	fmt.Println("database connected successfully")
+	logger.Logger.Info("Database connected successfully.")
+
 }
