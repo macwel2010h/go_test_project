@@ -1,7 +1,21 @@
 package handlers
 
-import "net/http"
+import (
+	"html/template"
+	"log"
+	"net/http"
+)
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "web/createAccount.html")
+	ts, err := template.ParseFiles("web/html/createAccount.html")
+	if err != nil {
+		log.Print(err.Error())
+		return
+	}
+	err = ts.Execute(w, nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+
 }

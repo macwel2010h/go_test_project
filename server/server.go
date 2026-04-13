@@ -24,3 +24,9 @@ func RunServer(handler http.Handler) {
 	}
 	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
 }
+
+func FileServer() http.Handler {
+	fileServer := http.FileServer(http.Dir("./web/"))
+	fmt.Println("The file server started.")
+	return fileServer
+}

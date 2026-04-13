@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <link
+      rel="stylesheet"
+      href="/web/main.css" />
+  </head>
+  <body class="create-account-page">
+    <main class="card">
+      <h1>Create New Account</h1>
+      <p>Fill in your details to open your new account.</p>
+
+      <form
+        action="#"
+        method="post">
+        <div class="name-row">
+          <label>
+            First Name
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First name"
+              required />
+          </label>
+
+          <label>
+            Last Name
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last name"
+              required />
+          </label>
+        </div>
+
+        <label>
+          User Name
+          <input
+            type="text"
+            name="username"
+            placeholder="Choose a username"
+            required />
+        </label>
+
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required />
+        </label>
+
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            placeholder="Create a password"
+            required />
+        </label>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p class="helper">
+        Already have an account? <a href="signIn.html">Sign in</a>
+      </p>
+    </main>
+  </body>
+</html>

@@ -3,15 +3,18 @@ package main
 import (
 	"net/http"
 	handlers "serv-test/api"
+	runServer "serv-test/server"
 )
 
 func RoutHandlers() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/{$}", handlers.IndexHandler)
-	mux.HandleFunc("/signIn", handlers.SignInHandler)
-	mux.HandleFunc("/about", handlers.AboutHandler)
-	mux.HandleFunc("/create-account", handlers.CreateAccountHandler)
+	mux.Handle("GET /web/", http.StripPrefix("/web", runServer.FileServer()))
+
+	mux.HandleFunc("GET /{$}", handlers.IndexHandler)
+	mux.HandleFunc("GET /signIn", handlers.SignInHandler)
+	mux.HandleFunc("GET /about", handlers.AboutHandler)
+	mux.HandleFunc("POST /create-account", handlers.CreateAccountHandler)
 
 	return mux
 }

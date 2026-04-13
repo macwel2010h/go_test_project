@@ -1,7 +1,21 @@
 package handlers
 
-import "net/http"
+import (
+	"html/template"
+	"log"
+	"net/http"
+)
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "web/signIn.html")
+	ts, err := template.ParseFiles("web/html/signIn.html")
+	if err != nil {
+		log.Print(err.Error())
+		return
+	}
+	err = ts.Execute(w, nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+
 }

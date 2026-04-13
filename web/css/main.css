@@ -1,0 +1,372 @@
+* {
+  box-sizing: border-box;
+}
+
+/* About page */
+body.about-page {
+  --text: #0f172a;
+  --muted: #475569;
+  --card: #ffffff;
+  --border: #cbd5e1;
+
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #ecfeff 0%, #f8fafc 100%);
+  padding: 24px;
+}
+
+.about-page .container {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.about-page h1,
+.about-page h2 {
+  margin-top: 0;
+}
+
+.about-page p {
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.about-page ul {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Create account page */
+body.create-account-page {
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #b45309;
+  --accent-dark: #92400e;
+  --border: #d1d5db;
+
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(
+    circle at top left,
+    #fff7ed 0%,
+    #ecfeff 55%,
+    #eef2ff 100%
+  );
+  color: var(--text);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.create-account-page .card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.create-account-page h1 {
+  margin: 0 0 8px;
+  font-size: 1.7rem;
+}
+
+.create-account-page p {
+  margin: 0 0 22px;
+  color: var(--muted);
+}
+
+.create-account-page form {
+  display: grid;
+  gap: 12px;
+}
+
+.create-account-page .name-row {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .create-account-page .name-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.create-account-page label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.create-account-page input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.create-account-page button {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.create-account-page button:hover {
+  background: var(--accent-dark);
+}
+
+.create-account-page .helper {
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+.create-account-page .helper a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.create-account-page .helper a:hover {
+  text-decoration: underline;
+}
+
+/* Home page */
+body.home-page {
+  --bg-start: #f0fdf4;
+  --bg-end: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #0369a1;
+  --primary-dark: #075985;
+  --accent: #15803d;
+  --border: #cbd5e1;
+
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: linear-gradient(145deg, var(--bg-start) 0%, var(--bg-end) 100%);
+}
+
+.home-page .page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.home-page .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.home-page .brand {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.home-page .nav-links {
+  display: flex;
+  gap: 8px;
+}
+
+.home-page .nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: #fff;
+}
+
+.home-page .hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 34px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.07);
+}
+
+.home-page h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.2;
+}
+
+.home-page .tagline {
+  margin: 14px 0 0;
+  color: var(--muted);
+  max-width: 62ch;
+  line-height: 1.65;
+}
+
+.home-page .actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-page .btn {
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.home-page .btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.home-page .btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.home-page .btn-secondary {
+  background: #fff;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.home-page .grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.home-page .card {
+  background: #ffffffcc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.home-page .card h2 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.home-page .card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.home-page .highlight {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* Sign in page */
+body.sign-in-page {
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --accent-dark: #0b5f59;
+  --border: #d1d5db;
+
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(160deg, #f6f5ef 0%, #e8efe8 100%);
+  color: var(--text);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.sign-in-page .card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.sign-in-page h1 {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+}
+
+.sign-in-page p {
+  margin: 0 0 22px;
+  color: var(--muted);
+}
+
+.sign-in-page form {
+  display: grid;
+  gap: 14px;
+}
+
+.sign-in-page label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.sign-in-page input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.sign-in-page button {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.sign-in-page button:hover {
+  background: var(--accent-dark);
+}
+
+.sign-in-page .helper {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.sign-in-page .helper a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sign-in-page .helper a:hover {
+  text-decoration: underline;
+}
