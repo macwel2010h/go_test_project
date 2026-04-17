@@ -5,7 +5,7 @@ import (
 	logger "serv-test/log"
 )
 
-func (app *app) serverError(w http.ResponseWriter, r *http.Request, err error) {
+func (app *App) serverError(w http.ResponseWriter, r *http.Request, err error) {
 	var (
 		method = r.Method
 		uri    = r.URL.RequestURI()
@@ -15,6 +15,6 @@ func (app *app) serverError(w http.ResponseWriter, r *http.Request, err error) {
 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 }
 
-func (app *app) clientError(w http.ResponseWriter, status int) {
+func (app *App) clientError(w http.ResponseWriter, status int) {
 	http.Error(w, http.StatusText(status), status)
 }

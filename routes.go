@@ -14,7 +14,9 @@ func RoutHandlers() *http.ServeMux {
 	mux.HandleFunc("GET /{$}", handlers.IndexHandler)
 	mux.HandleFunc("GET /signIn", handlers.SignInHandler)
 	mux.HandleFunc("GET /about", handlers.AboutHandler)
-	mux.HandleFunc("POST /create-account", handlers.CreateAccountHandler)
+	mux.HandleFunc("GET /create-account", handlers.CreateAccountHandler)
 
+	mux.HandleFunc("POST /create-account", handlers.CreateUser)
+	mux.HandleFunc("POST /signIn", handlers.PostSignInHandler)
 	return mux
 }

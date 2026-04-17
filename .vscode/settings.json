@@ -6,5 +6,21 @@
       "source.organizeImports": "explicit"
     }
   },
-  "go.formatTool": "gofmt"
+  "go.formatTool": "gofmt",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "go connection",
+      "database": "user_db",
+      "username": "root"
+    }
+  ]
 }
