@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"serv-test/internal/models"
-	"strconv"
 )
 
 var userModel *models.UserModel
@@ -31,12 +31,20 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
 
-	id, err := userModel.StoreCreateUser(firstName, lastName, username, email, password)
+	_, err = userModel.StoreCreateUser(firstName, lastName, username, email, password)
 	if err != nil {
 		HTTPError(w, r, err)
 		return
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write([]byte("created user id: " + strconv.Itoa(id)))
+	ts, err := template.ParseFiles("web/html/welcome.html")
+
+	if err != nil {
+		HTTPError(w, r, err)
+		return
+	}
+	err = ts.Execute(w, nil)
+	if err != nil {
+		HTTPError(w, r, err)
+	}
 }

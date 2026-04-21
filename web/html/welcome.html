@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Account Created | Saturn</title>
+    <link
+      rel="stylesheet"
+      href="/web/css/main.css" />
+  </head>
+  <body class="welcome-page">
+    <a class="home-shortcut" href="/">Home</a>
+
+    <div class="site-logo">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        Saturn
+      </div>
+    </div>
+
+    <main class="card">
+      <div class="success-icon">✓</div>
+      
+      <h1>Welcome, {{.Username}}!</h1>
+      
+      <p class="tagline">
+        Your account has been successfully created.
+      </p>
+
+      <div class="account-details">
+        <p>
+          <strong>Your Username:</strong> <span class="username-display">{{.Username}}</span>
+        </p>
+        <p class="verification-note">
+          Please sign in with your new username and password to verify your account and gain full access to the portal.
+        </p>
+      </div>
+
+      <a href="/signIn" class="btn btn-primary">Sign In Now</a>
+
+      <p class="helper">
+        Return to <a href="/">home page</a>
+      </p>
+    </main>
+  </body>
+</html>

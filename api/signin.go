@@ -41,9 +41,26 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if id == 0 {
-		http.Error(w, "invalid username or password", http.StatusUnauthorized)
-		return
+
+		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html")
+		if err != nil {
+			HTTPError(w, r, err)
+			return
+		}
+		err = ts.Execute(w, nil)
+		if err != nil {
+			HTTPError(w, r, err)
+		}
+	} else {
+		ts, err := template.ParseFiles("web/html/home.html")
+		if err != nil {
+			HTTPError(w, r, err)
+			return
+		}
+		err = ts.Execute(w, nil)
+		if err != nil {
+			HTTPError(w, r, err)
+		}
 	}
 
-	fmt.Println("this user exist..")
 }
