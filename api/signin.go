@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"serv-test/internal/models"
 )
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
@@ -34,13 +35,13 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 
-	id, err := userModel.CheckUserInDatabase(username, password)
+	models.U, err = userModel.CheckUserInDatabase(username, password)
 	if err != nil {
 		HTTPError(w, r, err)
 		return
 	}
 
-	if id == 0 {
+	if models.U.ID == 0 {
 
 		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html")
 		if err != nil {
@@ -52,12 +53,13 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 			HTTPError(w, r, err)
 		}
 	} else {
+
 		ts, err := template.ParseFiles("web/html/home.html")
 		if err != nil {
 			HTTPError(w, r, err)
 			return
 		}
-		err = ts.Execute(w, nil)
+		err = ts.Execute(w, models.U)
 		if err != nil {
 			HTTPError(w, r, err)
 		}
