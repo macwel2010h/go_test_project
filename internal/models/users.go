@@ -8,18 +8,18 @@ type User struct {
 	LastName  string
 	Username  string
 	Email     string
-	password  string
+	Password  string
 }
 
 type UserModel struct {
 	DB *sql.DB
 }
 
-func (um *UserModel) StoreCreateUser(firstName, lastName, username, email, password string) (int, error) {
+func (um *UserModel) StoreCreateUser(u User) (int, error) {
 	stmt := `INSERT INTO users (firstName, lastName, username, email, password)
 	VALUES(?,?,?,?,?)`
 
-	result, err := um.DB.Exec(stmt, firstName, lastName, username, email, password)
+	result, err := um.DB.Exec(stmt, u.FirstName, u.LastName, u.Username, u.Email, u.Password)
 	if err != nil {
 		return 0, err
 	}

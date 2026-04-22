@@ -31,7 +31,16 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
 
-	_, err = userModel.StoreCreateUser(firstName, lastName, username, email, password)
+	u := models.User{
+
+		FirstName: firstName,
+		LastName:  lastName,
+		Username:  username,
+		Email:     email,
+		Password:  password,
+	}
+
+	u.ID, err = userModel.StoreCreateUser(u)
 	if err != nil {
 		HTTPError(w, r, err)
 		return
@@ -43,7 +52,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		HTTPError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, nil)
+	err = ts.Execute(w, u)
 	if err != nil {
 		HTTPError(w, r, err)
 	}
