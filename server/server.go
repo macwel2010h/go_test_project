@@ -3,6 +3,7 @@ package runServer
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	logger "serv-test/log"
 	"time"
@@ -16,16 +17,21 @@ var s = http.Server{
 }
 
 func RunServer(handler http.Handler) {
+	logger.Logger.Info("Starting Server...")
+	listner, err := net.Listen("tcp", s.Addr)
+	if err != nil {
+		fmt.Printf("Can not connect to the server.Make sure the port:%s is not in use.", s.Addr)
+	}
+	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
 
-	err := http.ListenAndServe(s.Addr, handler)
+	err = http.Serve(listner, handler)
 	if err != nil {
 
 		fmt.Printf("An error occured while starting the Server : %v\n", err)
 		fmt.Println("Please restart the server.")
 		return
 	}
-	logger.Logger.Info("Starting Server...")
-	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
+
 }
 
 func FileServer() http.Handler {

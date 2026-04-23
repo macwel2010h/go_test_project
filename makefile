@@ -10,3 +10,5 @@ reset-db:
 	docker compose down
 	rm -rf ./db
 	@echo "Database wiped! Run 'make app-up' to rebuild and initialize."
+
+
