@@ -31,6 +31,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
 
+	models.HashPassword(&password)
+
 	models.U.FirstName = firstName
 	models.U.LastName = lastName
 	models.U.Username = username

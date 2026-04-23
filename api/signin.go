@@ -37,12 +37,6 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 
 	models.U, err = userModel.CheckUserInDatabase(username, password)
 	if err != nil {
-		HTTPError(w, r, err)
-		return
-	}
-
-	if models.U.ID == 0 {
-
 		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html")
 		if err != nil {
 			HTTPError(w, r, err)
@@ -52,17 +46,15 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			HTTPError(w, r, err)
 		}
-	} else {
-
-		ts, err := template.ParseFiles("web/html/home.html")
-		if err != nil {
-			HTTPError(w, r, err)
-			return
-		}
-		err = ts.Execute(w, models.U)
-		if err != nil {
-			HTTPError(w, r, err)
-		}
+		return
 	}
-
+	ts, err := template.ParseFiles("web/html/home.html")
+	if err != nil {
+		HTTPError(w, r, err)
+		return
+	}
+	err = ts.Execute(w, models.U)
+	if err != nil {
+		HTTPError(w, r, err)
+	}
 }

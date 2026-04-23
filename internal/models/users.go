@@ -2,6 +2,9 @@ package models
 
 import (
 	"database/sql"
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -42,15 +45,33 @@ func (um *UserModel) StoreDeleteUser(username string) (int, error) {
 }
 
 func (um *UserModel) CheckUserInDatabase(username, password string) (User, error) {
-	stmt := `SELECT * FROM users WHERE username = ? AND password = ?`
+	stmt := `SELECT * FROM users WHERE username = ?`
 
-	err := um.DB.QueryRow(stmt, username, password).Scan(&U.ID, &U.FirstName, &U.LastName, &U.Username, &U.Email, &U.Password, &U.CreatedAt)
+	err := um.DB.QueryRow(stmt, username).Scan(&U.ID, &U.FirstName, &U.LastName, &U.Username, &U.Email, &U.Password, &U.CreatedAt)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return User{}, nil
+			return User{}, errors.New("No user found")
 		}
 		return User{}, err
 	}
-
+	err = bcrypt.CompareHashAndPassword([]byte(U.Password), []byte(password))
+	if err != nil {
+		return User{}, errors.New("wrong password.")
+	}
 	return U, nil
+}
+
+func HashPassword(pass *string) error {
+	if pass == nil {
+		return errors.New("The password is nil.")
+	}
+
+	passBytes := []byte(*pass)
+
+	hashedBytes, err := bcrypt.GenerateFromPassword(passBytes, bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	*pass = string(hashedBytes[:])
+	return nil
 }
