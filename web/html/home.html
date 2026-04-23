@@ -41,37 +41,55 @@
 			</header>
 
 			<main>
-				<section class="post-create-section">
-					<h3>Add New Post</h3>
-					<form
-						action="/posts/create"
-						method="POST"
-					>
-						<div>
-							<label for="post-title">Title</label>
-							<input
-								type="text"
-								id="post-title"
-								name="title"
-								placeholder="Enter post title"
-								required
-							/>
+				<div class="dashboard-grid">
+					<section class="panel post-create-section">
+						<div class="post-create-head">
+							<h3 class="feed-heading">Add New Post</h3>
+							<p class="feed-sub">Share an update with your team.</p>
 						</div>
+						<form
+							action="/posts/create"
+							method="POST"
+						>
+							<div class="field">
+								<label for="post-title">Title</label>
+								<input
+									type="text"
+									id="post-title"
+									name="title"
+									placeholder="Enter a short post title"
+									required
+								/>
+							</div>
 
-						<div>
-							<label for="post-content">Content</label>
-							<textarea
-								id="post-content"
-								name="content"
-								rows="6"
-								placeholder="Write your post here"
-								required
-							></textarea>
+							<div class="field">
+								<label for="post-content">Content</label>
+								<textarea
+									id="post-content"
+									name="content"
+									rows="6"
+									placeholder="Write your update here"
+									required
+								></textarea>
+							</div>
+
+							<div class="post-actions">
+								<button type="submit">Publish Post</button>
+							</div>
+						</form>
+					</section>
+
+					<section class="panel">
+						<h3 class="feed-heading">Posts Feed</h3>
+						<p class="feed-sub">Published posts will appear here.</p>
+						<div class="post-list">
+							<article class="post">
+								<h3>No posts yet</h3>
+								<p>Create your first post using the form to get started.</p>
+							</article>
 						</div>
-
-						<button type="submit">Publish Post</button>
-					</form>
-				</section>
+					</section>
+				</div>
 			</main>
 		</div>
 	</body>
