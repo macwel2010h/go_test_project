@@ -3,10 +3,11 @@ package main
 import (
 	"net/http"
 	handlers "serv-test/api"
+	"serv-test/middlewares"
 	runServer "serv-test/server"
 )
 
-func RoutHandlers() *http.ServeMux {
+func RoutHandlers() http.Handler {
 	mux := http.NewServeMux()
 
 	mux.Handle("GET /web/", http.StripPrefix("/web", runServer.FileServer()))
@@ -19,5 +20,5 @@ func RoutHandlers() *http.ServeMux {
 	mux.HandleFunc("POST /create-account", handlers.CreateUser)
 	mux.HandleFunc("POST /signIn", handlers.PostSignInHandler)
 
-	return mux
+	return middlewares.CommonHeaders(mux)
 }
