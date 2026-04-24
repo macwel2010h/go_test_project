@@ -3,12 +3,13 @@ package database
 import (
 	"context"
 	"database/sql"
-	"serv-test/config"
 	logger "serv-test/log"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
+
+var DB *sql.DB
 
 func DatabaseConnect() {
 	db, err := sql.Open("mysql", "root:abcd@1234@tcp(localhost:3306)/go_test_project_db")
@@ -24,7 +25,7 @@ func DatabaseConnect() {
 	}
 	logger.Logger.Info("Database connected successfully.")
 
-	config.App.DB = db
+	DB = db
 }
 
 func InsertUser() {

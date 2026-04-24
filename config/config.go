@@ -3,6 +3,7 @@ package config
 import (
 	"database/sql"
 	"log/slog"
+	"serv-test/database"
 	logger "serv-test/log"
 
 	"github.com/alexedwards/scs/v2"
@@ -14,6 +15,8 @@ type Application struct {
 	SessionManager *scs.SessionManager
 }
 
-var app = &Application{
-	Logger: logger.Logger,
+var App = &Application{
+	Logger:         logger.Logger,
+	DB:             database.DB,
+	SessionManager: scs.New(),
 }

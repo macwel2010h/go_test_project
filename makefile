@@ -9,6 +9,6 @@ MySQL : Dockerfile docker-compose.yml database_init.sql
 reset-db:
 	docker compose down
 	rm -rf ./db
-	@echo "Database wiped! Run 'make app-up' to rebuild and initialize."
+	echo "Database wiped! Run 'make app-up' to rebuild and initialize."
 
 

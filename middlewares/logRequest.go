@@ -1,8 +1,11 @@
 package middlewares
 
-import "net/http"
+import (
+	"net/http"
+	"serv-test/config"
+)
 
-func (app *Application) logRequest(next http.Handler) http.Handler {
+func logRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var (
 			ip     = r.RemoteAddr
@@ -10,7 +13,7 @@ func (app *Application) logRequest(next http.Handler) http.Handler {
 			method = r.Method
 			uri    = r.URL.RequestURI()
 		)
-		app.Logger.Info("received request", "ip", ip, "proto", proto, "method", method, "uri", uri)
+		config.App.Logger.Info("received request", "ip", ip, "proto", proto, "method", method, "uri", uri)
 
 		next.ServeHTTP(w, r)
 	})
