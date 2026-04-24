@@ -2,10 +2,11 @@ package main
 
 import (
 	"net/http"
+	"serv-test/config"
 	logger "serv-test/log"
 )
 
-func (app *App) serverError(w http.ResponseWriter, r *http.Request, err error) {
+func (App *config.Application) serverError(w http.ResponseWriter, r *http.Request, err error) {
 	var (
 		method = r.Method
 		uri    = r.URL.RequestURI()

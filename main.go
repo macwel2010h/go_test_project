@@ -1,8 +1,6 @@
 package main
 
 import (
-	"database/sql"
-	"log/slog"
 	handlers "serv-test/api"
 	"serv-test/database"
 	"serv-test/internal/models"
@@ -13,17 +11,9 @@ import (
 	"github.com/alexedwards/scs/v2"
 )
 
-type App struct {
-	Logger         *slog.Logger
-	DB             *sql.DB
-	SessionManager *scs.SessionManager
-}
-
-var app = &App{}
-
 func main() {
 
-	app.DB = database.DatabaseConnect()
+	db := database.DatabaseConnect()
 	handlers.SetUserModel(&models.UserModel{DB: app.DB})
 
 	SessionManager := scs.New()
