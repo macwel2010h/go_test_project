@@ -5,12 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      image: go_test_mysql_image
-      container_name: go_test_mysql_container
+    image: go_test_mysql_image
+    container_name: go_test_mysql_container
+  
 
     restart: always
 
-    container_name: mysql-container
 
     environment:
       MYSQL_ROOT_PASSWORD: abcd@1234
