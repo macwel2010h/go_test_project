@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"errors"
+	"serv-test/config"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -17,17 +18,13 @@ type User struct {
 	CreatedAt []uint8
 }
 
-type UserModel struct {
-	DB *sql.DB
-}
-
 var U = User{}
 
-func (um *UserModel) StoreCreateUser(u *User) (int, error) {
+func StoreCreateUser(u *User) (int, error) {
 	stmt := `INSERT INTO users (firstName, lastName, username, email, password)
 	VALUES(?,?,?,?,?)`
 
-	result, err := um.DB.Exec(stmt, u.FirstName, u.LastName, u.Username, u.Email, u.Password)
+	result, err := config.App.DB.Exec(stmt, u.FirstName, u.LastName, u.Username, u.Email, u.Password)
 	if err != nil {
 		return 0, err
 	}
@@ -40,14 +37,14 @@ func (um *UserModel) StoreCreateUser(u *User) (int, error) {
 	return int(id), nil
 }
 
-func (um *UserModel) StoreDeleteUser(username string) (int, error) {
+func StoreDeleteUser(username string) (int, error) {
 	return 0, nil
 }
 
-func (um *UserModel) CheckUserInDatabase(username, password string) (User, error) {
+func CheckUserInDatabase(username, password string) (User, error) {
 	stmt := `SELECT * FROM users WHERE username = ?`
 
-	err := um.DB.QueryRow(stmt, username).Scan(&U.ID, &U.FirstName, &U.LastName, &U.Username, &U.Email, &U.Password, &U.CreatedAt)
+	err := config.App.DB.QueryRow(stmt, username).Scan(&U.ID, &U.FirstName, &U.LastName, &U.Username, &U.Email, &U.Password, &U.CreatedAt)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return User{}, errors.New("No user found")

@@ -4,18 +4,13 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"serv-test/config"
 	"serv-test/internal/models"
 )
 
-var userModel *models.UserModel
-
-func SetUserModel(um *models.UserModel) {
-	userModel = um
-}
-
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	if userModel == nil {
-		http.Error(w, "user model not initialized", http.StatusInternalServerError)
+	if config.App.DB == nil {
+		http.Error(w, "Database config not configured", http.StatusInternalServerError)
 		return
 	}
 
@@ -39,7 +34,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.U.Email = email
 	models.U.Password = password
 
-	models.U.ID, err = userModel.StoreCreateUser(&models.U)
+	models.U.ID, err = models.StoreCreateUser(&models.U)
 	if err != nil {
 		HTTPError(w, r, err)
 		return

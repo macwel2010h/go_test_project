@@ -20,5 +20,5 @@ func RoutHandlers() http.Handler {
 	mux.HandleFunc("POST /create-account", handlers.CreateUser)
 	mux.HandleFunc("POST /signIn", handlers.PostSignInHandler)
 
-	return middlewares.CommonHeaders(mux)
+	return middlewares.LogRequest(middlewares.CommonHeaders(mux))
 }

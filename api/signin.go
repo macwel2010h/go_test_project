@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"serv-test/config"
 	"serv-test/internal/models"
 )
 
@@ -21,8 +22,8 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
-	if userModel == nil {
-		http.Error(w, "user model not initialized", http.StatusInternalServerError)
+	if config.App.DB == nil {
+		http.Error(w, "Database config not configured", http.StatusInternalServerError)
 		return
 	}
 
@@ -35,7 +36,7 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 
-	models.U, err = userModel.CheckUserInDatabase(username, password)
+	models.U, err = models.CheckUserInDatabase(username, password)
 	if err != nil {
 		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html")
 		if err != nil {

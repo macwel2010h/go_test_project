@@ -3,7 +3,6 @@ package config
 import (
 	"database/sql"
 	"log/slog"
-	"serv-test/database"
 	logger "serv-test/log"
 
 	"github.com/alexedwards/scs/v2"
@@ -16,7 +15,7 @@ type Application struct {
 }
 
 var App = &Application{
-	Logger:         logger.Logger,
-	DB:             database.DB,
+	Logger: logger.Logger,
+	// DB is initialized in database.go DatabaseConnect function
 	SessionManager: scs.New(),
 }
