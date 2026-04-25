@@ -36,18 +36,18 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	models.U.ID, err = models.StoreCreateUser(&models.U)
 	if err != nil {
-		HTTPError(w, r, err)
+		ServerError(w, r, err)
 		return
 	}
 
 	ts, err := template.ParseFiles("web/html/welcome.html")
 
 	if err != nil {
-		HTTPError(w, r, err)
+		ServerError(w, r, err)
 		return
 	}
 	err = ts.Execute(w, models.U)
 	if err != nil {
-		HTTPError(w, r, err)
+		ServerError(w, r, err)
 	}
 }
