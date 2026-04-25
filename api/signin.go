@@ -49,6 +49,7 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+	models.P.UserName = username
 	ts, err := template.ParseFiles("web/html/home.html")
 	if err != nil {
 		ServerError(w, r, err)

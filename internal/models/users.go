@@ -20,21 +20,16 @@ type User struct {
 
 var U = User{}
 
-func StoreCreateUser(u *User) (int, error) {
+func StoreCreateUser(u *User) error {
 	stmt := `INSERT INTO users (firstName, lastName, username, email, password)
 	VALUES(?,?,?,?,?)`
 
-	result, err := config.App.DB.Exec(stmt, u.FirstName, u.LastName, u.Username, u.Email, u.Password)
+	_, err := config.App.DB.Exec(stmt, u.FirstName, u.LastName, u.Username, u.Email, u.Password)
 	if err != nil {
-		return 0, err
+		return err
 	}
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	return int(id), nil
+	return nil
 }
 
 func StoreDeleteUser(username string) (int, error) {

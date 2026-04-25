@@ -11,4 +11,7 @@ reset-db:
 	rm -rf ./db
 	echo "Database wiped! Run 'make app-up' to rebuild and initialize."
 
-
+reset: reset-db
+	docker stop go_test_mysql_container
+	docker rm go_test_mysql_container
+	docker rmi go_test_mysql_image

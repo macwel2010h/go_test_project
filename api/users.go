@@ -34,7 +34,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.U.Email = email
 	models.U.Password = password
 
-	models.U.ID, err = models.StoreCreateUser(&models.U)
+	err = models.StoreCreateUser(&models.U)
 	if err != nil {
 		ServerError(w, r, err)
 		return

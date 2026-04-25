@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      image: go_test_mysql_image
+      container_name: go_test_mysql_container
 
     restart: always
 
