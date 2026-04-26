@@ -6,7 +6,7 @@ import (
 )
 
 func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
-	ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html")
+	ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return

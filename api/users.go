@@ -40,7 +40,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ts, err := template.ParseFiles("web/html/welcome.html", "web/html/t_navbar.html")
+	ts, err := template.ParseFiles("web/html/welcome.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 
 	if err != nil {
 		ServerError(w, r, err)
