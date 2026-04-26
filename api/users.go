@@ -40,13 +40,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ts, err := template.ParseFiles("web/html/welcome.html")
+	ts, err := template.ParseFiles("web/html/welcome.html", "web/html/t_navbar.html")
 
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, models.U)
+	err = ts.ExecuteTemplate(w, "welcome.html", models.U)
 	if err != nil {
 		ServerError(w, r, err)
 	}

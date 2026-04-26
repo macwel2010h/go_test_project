@@ -9,12 +9,12 @@ import (
 )
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
-	ts, err := template.ParseFiles("web/html/signIn.html")
+	ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, nil)
+	err = ts.ExecuteTemplate(w, "signIn.html", nil)
 	if err != nil {
 		ServerError(w, r, err)
 	}
@@ -38,12 +38,12 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 
 	models.U, err = models.CheckUserInDatabase(username, password)
 	if err != nil {
-		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html")
+		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html")
 		if err != nil {
 			ServerError(w, r, err)
 			return
 		}
-		err = ts.Execute(w, nil)
+		err = ts.ExecuteTemplate(w, "wrongLoginRedirection.html", nil)
 		if err != nil {
 			ServerError(w, r, err)
 		}
