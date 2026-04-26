@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"serv-test/config"
 )
 
@@ -12,10 +13,10 @@ type Posts struct {
 }
 
 type Pfeed struct {
-	Posts []Posts
+	Posts_f []Posts
 }
 
-var pfeed = Pfeed{}
+var Postfeed = Pfeed{}
 
 var P = Posts{}
 
@@ -39,7 +40,14 @@ func StoreGetPost(p *Posts) error {
 		return err
 	}
 
-	postrows.Scan(pfeed)
+	for postrows.Next() {
+		var post Posts
+		if err := postrows.Scan(&post.ID, &post.UserName, &post.Title, &post.Content); err != nil {
+			return err
+		}
+		Postfeed.Posts_f = append(Postfeed.Posts_f, post)
+	}
+	fmt.Printf("this is from getpost : %v", Postfeed.Posts_f)
 
 	return nil
 }

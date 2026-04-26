@@ -9,38 +9,41 @@
   <body class="home-page">
     {{ template "t_navbar.html" .}} {{template "t_logo.html" .}}
 
-    <main class="hero">
-      <h1>Welcome to <span class="highlight">Saturn</span></h1>
-      <p class="tagline">
-        This is the home page for our customer and team portal. Sign in to
-        manage your account, or create a new account to get started in just a
-        few steps.
-      </p>
+    <div class="page">
+      <main class="hero">
+        <h1>Welcome to <span class="highlight">Saturn</span></h1>
+        <p class="tagline">
+          This is the home page for our customer and team portal. Sign in to
+          manage your account, or create a new account to get started in just a
+          few steps.
+        </p>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="/signIn">Sign In</a>
-        <a class="btn btn-secondary" href="/create-account">Create Account</a>
-      </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="/signIn">Sign In</a>
+          <a class="btn btn-secondary" href="/create-account">Create Account</a>
+        </div>
 
-      <section class="grid">
-        <article class="card">
-          <h2>Simple Access</h2>
-          <p>Quick login with your username and password from any device.</p>
-        </article>
-        <article class="card">
-          <h2>New Here?</h2>
-          <p>
-            Create your account with your name, username, email, and password.
-          </p>
-        </article>
-        <article class="card">
-          <h2>Built for Trust</h2>
-          <p>
-            Our platform focuses on reliable service, privacy, and smooth
-            experience.
-          </p>
-        </article>
-      </section>
-    </main>
+        <section class="grid">
+          <article class="card">
+            <h2>Simple Access</h2>
+            <p>Quick login with your username and password from any device.</p>
+          </article>
+          <article class="card">
+            <h2>New Here?</h2>
+            <p>
+              Create your account with your name, username, email, and password.
+            </p>
+          </article>
+
+          <article class="card">
+            <h2>Built for Trust</h2>
+            <p>
+              Our platform focuses on reliable service, privacy, and smooth
+              experience.
+            </p>
+          </article>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

@@ -8,6 +8,12 @@ import (
 	"serv-test/internal/models"
 )
 
+type templateData struct {
+	User *models.User
+	Post *models.Posts
+	Feed *models.Pfeed
+}
+
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
@@ -38,7 +44,7 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 
 	models.U, err = models.CheckUserInDatabase(username, password)
 	if err != nil {
-		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html")
+		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 		if err != nil {
 			ServerError(w, r, err)
 			return
@@ -49,13 +55,23 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+	models.StoreGetPost(&models.P)
 	models.P.UserName = username
-	ts, err := template.ParseFiles("web/html/home.html")
+
+	data := templateData{
+		User: &models.U,
+		Post: &models.P,
+		Feed: &models.Postfeed,
+	}
+
+	fmt.Println(data.Feed.Posts_f)
+
+	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, models.U)
+	err = ts.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		ServerError(w, r, err)
 	}
