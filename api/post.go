@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"serv-test/internal/models"
 )
@@ -25,6 +26,15 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ts, err := template.ParseFiles("web/html/index.html")
+	if err != nil {
+		ServerError(w, r, err)
+		return
+	}
+	err = ts.Execute(w, nil)
+	if err != nil {
+		ServerError(w, r, err)
+	}
 	// publish post here afterwards
 
 }

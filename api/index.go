@@ -6,12 +6,12 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	ts, err := template.ParseFiles("web/html/index.html")
+	ts, err := template.ParseFiles("web/html/index.html", "web/html/t_navbar.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, nil)
+	err = ts.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		ServerError(w, r, err)
 	}

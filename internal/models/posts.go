@@ -1,6 +1,8 @@
 package models
 
-import "serv-test/config"
+import (
+	"serv-test/config"
+)
 
 type Posts struct {
 	ID       int
@@ -8,6 +10,12 @@ type Posts struct {
 	Title    string
 	Content  string
 }
+
+type Pfeed struct {
+	Posts []Posts
+}
+
+var pfeed = Pfeed{}
 
 var P = Posts{}
 
@@ -19,6 +27,19 @@ func StoreCreatePost(p *Posts) error {
 	if err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func StoreGetPost(p *Posts) error {
+	stmt := ` SELECT * FROM posts `
+
+	postrows, err := config.App.DB.Query(stmt)
+	if err != nil {
+		return err
+	}
+
+	postrows.Scan(pfeed)
 
 	return nil
 }

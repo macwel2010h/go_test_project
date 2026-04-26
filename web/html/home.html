@@ -1,98 +1,79 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>Home | Saturn</title>
-		<link
-			rel="stylesheet"
-			href="/web/css/main.css"
-		/>
-	</head>
-	<body class="dashboard-page">
-		<nav
-			class="top-nav"
-			aria-label="Main navigation"
-		>
-			<a href="/">Home</a>
-			<a href="/about">About Us</a>
-		</nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Saturn</title>
+    <link rel="stylesheet" href="/web/css/main.css" />
+  </head>
+  <body class="dashboard-page">
+    {{template "t_navbar.html" .}}
 
-		<div class="site-logo">
-			<div class="brand">
-				<span class="brand-mark"></span>
-				Saturn
-			</div>
-		</div>
+    <div class="site-logo">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        Saturn
+      </div>
+    </div>
 
-		<div class="dashboard-shell">
-			<header class="dashboard-header">
-				<div>
-					<h1>This is home page.</h1>
-					<h2>Welcome {{.FirstName}} {{.LastName}}....</h2>
-					<p class="header-subtitle">Your account is active</p>
-				</div>
-				<a
-					class="sign-out-shortcut"
-					href="/signIn"
-					>Sign Out</a
-				>
-			</header>
+    <div class="dashboard-shell">
+      <header class="dashboard-header">
+        <div>
+          <h1>This is home page.</h1>
+          <h2>Welcome {{.FirstName}} {{.LastName}}....</h2>
+          <p class="header-subtitle">Your account is active</p>
+        </div>
+        <a class="sign-out-shortcut" href="/signIn">Sign Out</a>
+      </header>
 
-			<main>
-				<div class="dashboard-grid">
-					<section class="panel post-create-section">
-						<div class="post-create-head">
-							<h3 class="feed-heading">Add New Post</h3>
-							<p class="feed-sub">Share an update with your team.</p>
-						</div>
-						<form
-							action="/create-post"
-							method="POST"
-						>
-							<div class="field">
-								<label for="post-title">Title</label>
-								<input
-									type="text"
-									id="post-title"
-									name="title"
-									placeholder="Enter a short post title"
-									required
-								/>
-							</div>
+      <main>
+        <div class="dashboard-grid">
+          <section class="panel post-create-section">
+            <div class="post-create-head">
+              <h3 class="feed-heading">Add New Post</h3>
+              <p class="feed-sub">Share an update with your team.</p>
+            </div>
+            <form action="/create-post" method="POST">
+              <div class="field">
+                <label for="post-title">Title</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  name="title"
+                  placeholder="Enter a short post title"
+                  required
+                />
+              </div>
 
-							<div class="field">
-								<label for="post-content">Content</label>
-								<textarea
-									id="post-content"
-									name="content"
-									rows="6"
-									placeholder="Write your update here"
-									required
-								></textarea>
-							</div>
+              <div class="field">
+                <label for="post-content">Content</label>
+                <textarea
+                  id="post-content"
+                  name="content"
+                  rows="6"
+                  placeholder="Write your update here"
+                  required
+                ></textarea>
+              </div>
 
-							<div class="post-actions">
-								<button type="submit">Publish Post</button>
-							</div>
-						</form>
-					</section>
+              <div class="post-actions">
+                <button type="submit">Publish Post</button>
+              </div>
+            </form>
+          </section>
 
-					<section class="panel">
-						<h3 class="feed-heading">Posts Feed</h3>
-						<p class="feed-sub">Published posts will appear here.</p>
-						<div class="post-list">
-							<article class="post">
-								<h3>No posts yet</h3>
-								<p>Create your first post using the form to get started.</p>
-							</article>
-						</div>
-					</section>
-				</div>
-			</main>
-		</div>
-	</body>
+          <section class="panel">
+            <h3 class="feed-heading">Posts Feed</h3>
+            <p class="feed-sub">Published posts will appear here.</p>
+            <div class="post-list">
+              <article class="post">
+                <h3>No posts yet</h3>
+                <p>Create your first post using the form to get started.</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
