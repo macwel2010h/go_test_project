@@ -26,15 +26,14 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ts, err := template.ParseFiles("web/html/index.html")
+	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.Execute(w, nil)
+	err = ts.ExecuteTemplate(w, "home.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}
-	// publish post here afterwards
 
 }

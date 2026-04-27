@@ -12,26 +12,29 @@ type templateData struct {
 	Feed *models.Posts
 }
 
-func PostFeedDisplay() {
-	data := templateData{
-		User: &models.U,
-		Post: &models.P,
-		Feed: &models.Ps,
-	}
+var Data = templateData{
+	User: &models.U,
+	Post: &models.P,
+	Feed: &models.Ps,
+}
 
-	stmt := ` SELECT * FROM posts `
+func PostFeedDisplay() {
+
+	stmt := ` SELECT * FROM posts ORDER BY created_at DESC`
 
 	postrows, err := config.App.DB.Query(stmt)
 	if err != nil {
-		return err
+		return
 	}
 
+	defer postrows.Close()
+
 	for postrows.Next() {
-		var post Post
+		var post models.Post
 		if err := postrows.Scan(&post.ID, &post.UserName, &post.Title, &post.Content); err != nil {
-			return err
+			return
 		}
-		Ps.Posts = append(Ps.Posts, post)
+		Data.Feed.Posts = append(Data.Feed.Posts, post)
 	}
-	fmt.Printf("this is from getpost : %v", Ps.Posts)
+	fmt.Printf("this is from getpost : %v", Data.Feed.Posts)
 }

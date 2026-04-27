@@ -57,10 +57,19 @@
 
           <section class="panel">
             <h3 class="feed-heading">Posts Feed</h3>
-            <!-- # use if else condition for when there are no posts and when there
-            are posts.-->
 
-            <!-- #if -->
+            {{if .Feed.Posts}}
+
+            <p class="feed-sub">You are all caught up for today.</p>
+            {{range .Feed.Posts}}
+            <div class="post-list">
+              <article class="post">
+                <h3>{{.Title}}</h3>
+                <p>{{.Content}}</p>
+                <small>Posted by {{.UserName}}</small>
+              </article>
+            </div>
+            {{end}} {{else}}
             <p class="feed-sub">Published posts will appear here.</p>
             <div class="post-list">
               <article class="post">
@@ -69,18 +78,7 @@
               </article>
             </div>
 
-            <!-- #else -->
-            <p class="feed-sub">You are all caught up for today.</p>
-            {{range .Feed.Posts_f}}
-            <div class="post-list">
-              <article class="post">
-                <h3>{{.Title}}</h3>
-                <p>{{.Content}}</p>
-                <small>Posted by {{.UserName}}</small>
-              </article>
-            </div>
             {{end}}
-            <!-- #end if-else -->
           </section>
         </div>
       </main>

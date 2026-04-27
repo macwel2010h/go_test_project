@@ -14,7 +14,7 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.ExecuteTemplate(w, "signIn.html", nil)
+	err = ts.ExecuteTemplate(w, "signIn.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}
@@ -51,13 +51,14 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	models.P.UserName = username
+	PostFeedDisplay()
 
 	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.ExecuteTemplate(w, "home.html", nil)
+	err = ts.ExecuteTemplate(w, "home.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}

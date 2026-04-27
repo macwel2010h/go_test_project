@@ -1,7 +1,5 @@
-
 CREATE DATABASE IF NOT EXISTS go_test_project_db;
 USE go_test_project_db;
-
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
@@ -11,18 +9,16 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     title VARCHAR(256) NOT NULL,
-    content VARCHAR(256) NOT NULL
+    content VARCHAR(256) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS sessions (
     token CHAR(43) PRIMARY KEY,
-    data  BLOB NOT NULL,
+    data BLOB NOT NULL,
     expiry TIMESTAMP(6) NOT NULL
 );
-
 CREATE INDEX sessions_expiry_idx ON sessions (expiry);
