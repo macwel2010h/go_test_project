@@ -20,16 +20,58 @@
   --color-bg-c: #dbe7ff;
   --font-body: "Exo 2", "Segoe UI", sans-serif;
   --font-display: "Orbitron", "Trebuchet MS", sans-serif;
-  --space-stars: radial-gradient(circle at 8% 14%, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 18% 72%, rgba(255, 255, 255, 0.42) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 28% 36%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 42% 18%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1.2px),
-    radial-gradient(circle at 58% 64%, rgba(255, 255, 255, 0.4) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 74% 30%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 86% 82%, rgba(255, 255, 255, 0.38) 0 1px, transparent 1.3px),
-    radial-gradient(circle at 95% 12%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.2px);
-  --space-nebula: radial-gradient(circle at 16% 78%, rgba(115, 146, 255, 0.2) 0%, transparent 36%),
-    radial-gradient(circle at 84% 8%, rgba(184, 137, 58, 0.22) 0%, transparent 34%);
+  --space-stars:
+    radial-gradient(
+      circle at 8% 14%,
+      rgba(255, 255, 255, 0.6) 0 1px,
+      transparent 1.4px
+    ),
+    radial-gradient(
+      circle at 18% 72%,
+      rgba(255, 255, 255, 0.42) 0 1px,
+      transparent 1.3px
+    ),
+    radial-gradient(
+      circle at 28% 36%,
+      rgba(255, 255, 255, 0.5) 0 1px,
+      transparent 1.4px
+    ),
+    radial-gradient(
+      circle at 42% 18%,
+      rgba(255, 255, 255, 0.45) 0 1px,
+      transparent 1.2px
+    ),
+    radial-gradient(
+      circle at 58% 64%,
+      rgba(255, 255, 255, 0.4) 0 1px,
+      transparent 1.3px
+    ),
+    radial-gradient(
+      circle at 74% 30%,
+      rgba(255, 255, 255, 0.52) 0 1px,
+      transparent 1.3px
+    ),
+    radial-gradient(
+      circle at 86% 82%,
+      rgba(255, 255, 255, 0.38) 0 1px,
+      transparent 1.3px
+    ),
+    radial-gradient(
+      circle at 95% 12%,
+      rgba(255, 255, 255, 0.5) 0 1px,
+      transparent 1.2px
+    );
+  --space-nebula:
+    radial-gradient(
+      circle at 16% 78%,
+      rgba(115, 146, 255, 0.2) 0%,
+      transparent 36%
+    ),
+    radial-gradient(
+      circle at 84% 8%,
+      rgba(184, 137, 58, 0.22) 0%,
+      transparent 34%
+    );
   --space-sky: linear-gradient(165deg, #060a1f 0%, #11183b 54%, #21163d 100%);
 }
 
@@ -51,7 +93,11 @@
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  background: linear-gradient(180deg, rgba(11, 18, 45, 0.62) 0%, rgba(11, 18, 45, 0.4) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 18, 45, 0.62) 0%,
+    rgba(11, 18, 45, 0.4) 100%
+  );
   border-bottom: 1px solid rgba(251, 231, 190, 0.28);
   box-shadow: 0 10px 24px rgba(3, 8, 22, 0.3);
   backdrop-filter: blur(18px) saturate(150%);
@@ -68,10 +114,20 @@
   border-radius: 999px;
   border: 1px solid rgba(251, 231, 190, 0.45);
   padding: 8px 14px;
-  background: linear-gradient(180deg, rgba(18, 28, 64, 0.72) 0%, rgba(16, 24, 58, 0.56) 100%);
-  text-shadow: 0 0 7px rgba(255, 239, 203, 0.42), 0 0 16px rgba(221, 178, 101, 0.24);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
-    background 0.2s ease, color 0.2s ease;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 28, 64, 0.72) 0%,
+    rgba(16, 24, 58, 0.56) 100%
+  );
+  text-shadow:
+    0 0 7px rgba(255, 239, 203, 0.42),
+    0 0 16px rgba(221, 178, 101, 0.24);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .top-nav a::before {
@@ -81,17 +137,28 @@
   left: -135%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.42) 50%, transparent 100%);
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 100%
+  );
   transform: skewX(-20deg);
   transition: left 0.45s ease;
 }
 
 .top-nav a:hover {
   color: #fff8e8;
-  background: linear-gradient(180deg, rgba(27, 40, 90, 0.84) 0%, rgba(20, 32, 74, 0.75) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(27, 40, 90, 0.84) 0%,
+    rgba(20, 32, 74, 0.75) 100%
+  );
   border-color: rgba(255, 236, 195, 0.88);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(10, 16, 42, 0.35), 0 0 0 1px rgba(255, 230, 176, 0.2) inset;
+  box-shadow:
+    0 6px 18px rgba(10, 16, 42, 0.35),
+    0 0 0 1px rgba(255, 230, 176, 0.2) inset;
 }
 
 .top-nav a:hover::before {
@@ -158,9 +225,15 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle at 34% 30%, #fff6df 0%, #e7c27a 52%, #b8893a 100%);
+  background: radial-gradient(
+    circle at 34% 30%,
+    #fff6df 0%,
+    #e7c27a 52%,
+    #b8893a 100%
+  );
   position: relative;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.55),
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.55),
     0 0 18px rgba(184, 137, 58, 0.45),
     0 4px 14px rgba(28, 37, 64, 0.3);
 }
@@ -760,6 +833,7 @@ body.dashboard-page {
   display: grid;
   gap: 16px;
   grid-template-columns: minmax(260px, 320px) 1fr;
+  align-items: start;
 }
 
 .panel {
@@ -837,6 +911,7 @@ body.dashboard-page {
   border-radius: 12px;
   padding: 12px;
   background: #fffcf6;
+  margin-bottom: 12px;
 }
 
 .post h3 {
@@ -854,6 +929,7 @@ body.dashboard-page {
   margin-top: 10px;
   font-size: 0.88rem;
   color: #6b7280;
+  text-align: right;
 }
 
 .sign-out-shortcut {
@@ -877,6 +953,10 @@ body.dashboard-page {
 
 .dashboard-page .post-create-head {
   margin-bottom: 14px;
+}
+
+.dashboard-page .post-create-section {
+  align-self: start;
 }
 
 .dashboard-page .post-create-section form {
@@ -908,7 +988,9 @@ body.dashboard-page {
   padding: 13px 14px;
   font: inherit;
   background: #fffdfa;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .dashboard-page .post-create-section input::placeholder,
@@ -945,15 +1027,20 @@ body.dashboard-page {
   background: linear-gradient(180deg, #c79645 0%, #b8893a 55%, #9a6f2d 100%);
   cursor: pointer;
   min-width: 210px;
-  box-shadow: 0 10px 22px rgba(22, 16, 40, 0.22),
+  box-shadow:
+    0 10px 22px rgba(22, 16, 40, 0.22),
     inset 0 1px 0 rgba(255, 243, 210, 0.38);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.18s ease;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.18s ease;
 }
 
 .dashboard-page .post-create-section button:hover {
   background: linear-gradient(180deg, #d2a14f 0%, #c3913e 55%, #a77731 100%);
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(22, 16, 40, 0.26),
+  box-shadow:
+    0 12px 24px rgba(22, 16, 40, 0.26),
     inset 0 1px 0 rgba(255, 243, 210, 0.42);
 }
 

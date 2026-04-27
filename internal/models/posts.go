@@ -2,6 +2,7 @@ package models
 
 import (
 	"serv-test/config"
+	"time"
 )
 
 type Post struct {
@@ -9,7 +10,7 @@ type Post struct {
 	UserName   string
 	Title      string
 	Content    string
-	Created_at []uint8
+	Created_at time.Time
 }
 
 type Posts struct {
