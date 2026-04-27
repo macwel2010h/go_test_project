@@ -43,7 +43,7 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 			ServerError(w, r, err)
 			return
 		}
-		err = ts.ExecuteTemplate(w, "wrongLoginRedirection.html", nil)
+		err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
 		if err != nil {
 			ServerError(w, r, err)
 		}

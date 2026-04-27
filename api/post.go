@@ -26,6 +26,8 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	PostFeedDisplay()
+
 	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 	if err != nil {
 		ServerError(w, r, err)

@@ -20,6 +20,8 @@ var Data = templateData{
 
 func PostFeedDisplay() {
 
+	Data.Feed.Posts = nil
+
 	stmt := ` SELECT * FROM posts ORDER BY created_at DESC`
 
 	postrows, err := config.App.DB.Query(stmt)
@@ -31,7 +33,7 @@ func PostFeedDisplay() {
 
 	for postrows.Next() {
 		var post models.Post
-		if err := postrows.Scan(&post.ID, &post.UserName, &post.Title, &post.Content); err != nil {
+		if err := postrows.Scan(&post.ID, &post.UserName, &post.Title, &post.Content, &post.Created_at); err != nil {
 			return
 		}
 		Data.Feed.Posts = append(Data.Feed.Posts, post)

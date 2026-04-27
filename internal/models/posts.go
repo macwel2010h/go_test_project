@@ -5,10 +5,11 @@ import (
 )
 
 type Post struct {
-	ID       int
-	UserName string
-	Title    string
-	Content  string
+	ID         int
+	UserName   string
+	Title      string
+	Content    string
+	Created_at []uint8
 }
 
 type Posts struct {
