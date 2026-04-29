@@ -11,7 +11,8 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
-	err = ts.ExecuteTemplate(w, "createAccount.html", nil)
+
+	err = ts.ExecuteTemplate(w, "createAccount.html", Data)
 	if err != nil {
 		ServerError(w, r, err)
 	}

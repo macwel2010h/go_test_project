@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"serv-test/config"
 	"serv-test/internal/models"
+	"strings"
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -33,6 +34,17 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.U.Username = username
 	models.U.Email = email
 	models.U.Password = password
+
+	if strings.TrimSpace(firstName) == "" {
+		Data.FieldErrors["title"] = "First name could not be empty."
+	}
+
+	if len(Data.FieldErrors) > 0 {
+		fmt.Fprint(w, Data.FieldErrors)
+		http.Redirect(w, r, "/create-account", 200)
+		return
+
+	}
 
 	err = models.StoreCreateUser(&models.U)
 	if err != nil {

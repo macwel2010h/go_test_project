@@ -7,15 +7,17 @@ import (
 )
 
 type templateData struct {
-	User *models.User
-	Post *models.Post
-	Feed *models.Posts
+	User        *models.User
+	Post        *models.Post
+	Feed        *models.Posts
+	FieldErrors map[string]string
 }
 
 var Data = templateData{
-	User: &models.U,
-	Post: &models.P,
-	Feed: &models.Ps,
+	User:        &models.U,
+	Post:        &models.P,
+	Feed:        &models.Ps,
+	FieldErrors: map[string]string{},
 }
 
 func PostFeedDisplay() {
