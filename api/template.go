@@ -11,7 +11,7 @@ type templateData struct {
 	Post        *models.Post
 	Feed        *models.Posts
 	FieldErrors map[string]string
-	Form        any
+	UserForm    any
 }
 
 var Data = templateData{

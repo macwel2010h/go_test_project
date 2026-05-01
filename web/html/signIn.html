@@ -15,22 +15,26 @@
 
       <form action="/signIn" method="post">
         <label>
-          Username
+          Username{{with .FieldErrors.username}}
+          <label class="error-text">{{.}}</label>
+          {{end}}
           <input
             type="text"
             name="username"
             placeholder="Enter your username"
-            required
+            class="{{if .FieldErrors.username}}error{{end}}"
           />
         </label>
 
         <label>
-          Password
+          Password{{with .FieldErrors.password}}
+          <label class="error-text">{{.}}</label>
+          {{end}}
           <input
             type="password"
             name="password"
             placeholder="Enter your password"
-            required
+            class="{{if .FieldErrors.password}}error{{end}}"
           />
         </label>
 

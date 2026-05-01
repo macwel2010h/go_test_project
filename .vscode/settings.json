@@ -27,8 +27,8 @@
       "server": "localhost",
       "port": 3306,
       "driver": "MySQL",
-      "name": "go-test-project",
-      "database": "mysql",
+      "name": "go_test_project",
+      "database": "go_test_project_db",
       "username": "root"
     }
   ]

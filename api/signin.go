@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"serv-test/config"
 	"serv-test/internal/models"
+	"strings"
 )
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
@@ -19,6 +20,10 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 	}
 
+}
+
+type SigninForm struct {
+	FieldErrors map[string]string
 }
 
 func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
@@ -36,30 +41,56 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 
-	models.U, err = models.CheckUserInDatabase(username, password)
-	if err != nil {
-		ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+	signinForm := SigninForm{
+
+		FieldErrors: map[string]string{},
+	}
+
+	if strings.TrimSpace(username) == "" {
+		signinForm.FieldErrors["username"] = "Username can not be empty."
+	}
+
+	if strings.TrimSpace(password) == "" {
+		signinForm.FieldErrors["password"] = "Password can not be empty."
+	}
+
+	if len(signinForm.FieldErrors) > 0 {
+		ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 		if err != nil {
 			ServerError(w, r, err)
 			return
 		}
-		err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
+		err = ts.ExecuteTemplate(w, "signIn.html", signinForm)
 		if err != nil {
 			ServerError(w, r, err)
 		}
-		return
-	}
+	} else {
 
-	models.P.UserName = username
-	PostFeedDisplay()
+		models.U, err = models.CheckUserInDatabase(username, password)
+		if err != nil {
+			ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+			if err != nil {
+				ServerError(w, r, err)
+				return
+			}
+			err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
+			if err != nil {
+				ServerError(w, r, err)
+			}
+			return
+		}
 
-	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-	if err != nil {
-		ServerError(w, r, err)
-		return
-	}
-	err = ts.ExecuteTemplate(w, "home.html", Data)
-	if err != nil {
-		ServerError(w, r, err)
+		models.P.UserName = username
+		PostFeedDisplay()
+
+		ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+		err = ts.ExecuteTemplate(w, "home.html", Data)
+		if err != nil {
+			ServerError(w, r, err)
+		}
 	}
 }
