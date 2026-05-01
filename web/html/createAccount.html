@@ -16,48 +16,63 @@
       <form action="/create-account" method="post">
         <div class="name-row">
           <label>
-            First Name
-            <input type="text" name="firstName" placeholder="First name" />
+            First Name {{with .FieldErrors.firstName}}
+            <label class="error-text">{{.}}</label>
+            {{end}}
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First name"
+              class="{{if .FieldErrors.firstName}}error{{end}}"
+            />
           </label>
 
           <label>
-            Last Name
+            Last Name{{with .FieldErrors.lastName}}
+            <label class="error-text">{{.}}</label>
+            {{end}}
             <input
               type="text"
               name="lastName"
               placeholder="Last name"
-              required
+              class="{{if .FieldErrors.lastName}}error{{end}}"
             />
           </label>
         </div>
 
         <label>
-          User Name
+          User Name{{with .FieldErrors.username}}
+          <label class="error-text">{{.}}</label>
+          {{end}}
           <input
             type="text"
             name="username"
             placeholder="Choose a username"
-            required
+            class="{{if .FieldErrors.username}}error{{end}}"
           />
         </label>
 
         <label>
-          Email
+          Email{{with .FieldErrors.email}}
+          <label class="error-text">{{.}}</label>
+          {{end}}
           <input
             type="email"
             name="email"
             placeholder="you@example.com"
-            required
+            class="{{if .FieldErrors.email}}error{{end}}"
           />
         </label>
 
         <label>
-          Password
+          Password {{with .FieldErrors.password}}
+          <label class="error-text">{{.}}</label>
+          {{end}}
           <input
             type="password"
             name="password"
             placeholder="Create a password"
-            required
+            class="{{if .FieldErrors.password}}error{{end}}"
           />
         </label>
 

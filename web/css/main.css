@@ -367,12 +367,12 @@ body.create-account-page {
 
 .create-account-page form {
   display: grid;
-  gap: 12px;
+  gap: 32px;
 }
 
 .create-account-page .name-row {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
 @media (min-width: 640px) {
@@ -383,8 +383,10 @@ body.create-account-page {
 
 .create-account-page label {
   display: grid;
-  gap: 6px;
+  gap: 10px;
   font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
 }
 
 .create-account-page input {
@@ -393,6 +395,36 @@ body.create-account-page {
   border-radius: 8px;
   border: 1px solid var(--color-border);
   font-size: 1rem;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.create-account-page input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.create-account-page input.error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.create-account-page input.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.create-account-page .error-text {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  pointer-events: none;
+  margin-bottom: 8px;
 }
 
 .create-account-page button {
@@ -618,6 +650,31 @@ body.sign-in-page {
   border-radius: 8px;
   border: 1px solid var(--color-border);
   font-size: 1rem;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.sign-in-page input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.sign-in-page input.error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.sign-in-page input.error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.sign-in-page .error-text {
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 2px;
 }
 
 .sign-in-page button {

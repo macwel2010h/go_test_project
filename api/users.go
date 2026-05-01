@@ -9,6 +9,15 @@ import (
 	"strings"
 )
 
+type UserForm struct {
+	FirstName   string
+	LastName    string
+	Username    string
+	Email       string
+	Password    string
+	FieldErrors map[string]string
+}
+
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if config.App.DB == nil {
 		http.Error(w, "Database config not configured", http.StatusInternalServerError)
@@ -35,31 +44,72 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.U.Email = email
 	models.U.Password = password
 
+	userForm := UserForm{
+		FirstName:   firstName,
+		LastName:    lastName,
+		Username:    username,
+		Email:       email,
+		Password:    password,
+		FieldErrors: map[string]string{},
+	}
+
+	userForm.FirstName = firstName
+	userForm.LastName = lastName
+	userForm.Username = username
+	userForm.Email = email
+	userForm.Password = password
+
 	if strings.TrimSpace(firstName) == "" {
-		Data.FieldErrors["title"] = "First name could not be empty."
+		userForm.FieldErrors["firstName"] = "First name can not be empty."
 	}
 
-	if len(Data.FieldErrors) > 0 {
-		fmt.Fprint(w, Data.FieldErrors)
-		http.Redirect(w, r, "/create-account", 200)
-		return
+	if strings.TrimSpace(lastName) == "" {
+		userForm.FieldErrors["lastName"] = "Last name can not be empty."
+	}
+
+	if strings.TrimSpace(username) == "" {
+		userForm.FieldErrors["username"] = "Username can not be empty."
+	} else if models.CheckUsernameAvailability(username) == true {
+		userForm.FieldErrors["username"] = "Username already exist. select different username."
 
 	}
 
-	err = models.StoreCreateUser(&models.U)
-	if err != nil {
-		ServerError(w, r, err)
-		return
+	if strings.TrimSpace(email) == "" {
+		userForm.FieldErrors["email"] = "Email can not be empty."
 	}
 
-	ts, err := template.ParseFiles("web/html/welcome.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-
-	if err != nil {
-		ServerError(w, r, err)
-		return
+	if strings.TrimSpace(password) == "" {
+		userForm.FieldErrors["password"] = "Password can not be empty."
 	}
-	err = ts.ExecuteTemplate(w, "welcome.html", models.U)
-	if err != nil {
-		ServerError(w, r, err)
+
+	if len(userForm.FieldErrors) > 0 {
+		ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+		err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
+		if err != nil {
+			ServerError(w, r, err)
+		}
+	} else {
+
+		err = models.StoreCreateUser(&models.U)
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+
+		ts, err := template.ParseFiles("web/html/welcome.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+		err = ts.ExecuteTemplate(w, "welcome.html", userForm)
+		if err != nil {
+			ServerError(w, r, err)
+		}
 	}
 }

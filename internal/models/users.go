@@ -53,6 +53,30 @@ func CheckUserInDatabase(username, password string) (User, error) {
 	return U, nil
 }
 
+func CheckUsernameAvailability(usernameForm string) bool {
+	stmt := `SELECT username FROM users`
+
+	usernamerows, err := config.App.DB.Query(stmt)
+	if err != nil {
+		return false
+	}
+
+	defer usernamerows.Close()
+
+	var matched bool = false
+
+	for usernamerows.Next() {
+
+		var username string
+
+		usernamerows.Scan(&username)
+		if username == usernameForm {
+			matched = true
+		}
+	}
+	return matched
+}
+
 func HashPassword(pass *string) error {
 	if pass == nil {
 		return errors.New("The password is nil.")

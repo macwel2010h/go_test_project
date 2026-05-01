@@ -11,13 +11,13 @@ type templateData struct {
 	Post        *models.Post
 	Feed        *models.Posts
 	FieldErrors map[string]string
+	Form        any
 }
 
 var Data = templateData{
-	User:        &models.U,
-	Post:        &models.P,
-	Feed:        &models.Ps,
-	FieldErrors: map[string]string{},
+	User: &models.U,
+	Post: &models.P,
+	Feed: &models.Ps,
 }
 
 func PostFeedDisplay() {
