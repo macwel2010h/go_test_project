@@ -12,7 +12,7 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ts.ExecuteTemplate(w, "createAccount.html", Data)
+	err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
 	if err != nil {
 		ServerError(w, r, err)
 	}

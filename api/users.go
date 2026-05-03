@@ -18,6 +18,11 @@ type UserForm struct {
 	FieldErrors map[string]string
 }
 
+var userForm = UserForm{
+
+	FieldErrors: map[string]string{},
+}
+
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if config.App.DB == nil {
 		http.Error(w, "Database config not configured", http.StatusInternalServerError)
@@ -43,15 +48,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	models.U.Username = username
 	models.U.Email = email
 	models.U.Password = password
-
-	userForm := UserForm{
-		FirstName:   firstName,
-		LastName:    lastName,
-		Username:    username,
-		Email:       email,
-		Password:    password,
-		FieldErrors: map[string]string{},
-	}
 
 	userForm.FirstName = firstName
 	userForm.LastName = lastName
