@@ -18,10 +18,7 @@ type UserForm struct {
 	FieldErrors map[string]string
 }
 
-var userForm = UserForm{
-
-	FieldErrors: map[string]string{},
-}
+var userForm = UserForm{}
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if config.App.DB == nil {
@@ -54,6 +51,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	userForm.Username = username
 	userForm.Email = email
 	userForm.Password = password
+	userForm.FieldErrors = map[string]string{}
 
 	if strings.TrimSpace(firstName) == "" {
 		userForm.FieldErrors["firstName"] = "First name can not be empty."
