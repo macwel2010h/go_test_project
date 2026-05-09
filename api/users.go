@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"serv-test/config"
 	"serv-test/internal/models"
-	"strings"
+	"serv-test/internal/validator"
 )
 
 type UserForm struct {
-	FirstName   string
-	LastName    string
-	Username    string
-	Email       string
-	Password    string
-	FieldErrors map[string]string
+	FirstName string
+	LastName  string
+	Username  string
+	Email     string
+	Password  string
+	validator.Validator
 }
 
 var userForm = UserForm{}
@@ -38,57 +38,28 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
 
-	models.HashPassword(&password)
-
 	models.U.FirstName = firstName
 	models.U.LastName = lastName
 	models.U.Username = username
 	models.U.Email = email
-	models.U.Password = password
 
 	userForm.FirstName = firstName
 	userForm.LastName = lastName
 	userForm.Username = username
 	userForm.Email = email
 	userForm.Password = password
-	userForm.FieldErrors = map[string]string{}
 
-	if strings.TrimSpace(firstName) == "" {
-		userForm.FieldErrors["firstName"] = "First name can not be empty."
-	}
+	userForm.CheckField(validator.NotBlank(userForm.FirstName), "firstName", "First name can not be blank.")
+	userForm.CheckField(validator.NotBlank(userForm.LastName), "lastName", "Last name can not be blank.")
+	userForm.CheckField(validator.NotBlank(userForm.Username), "username", "Usename can not be blank.")
+	userForm.CheckField(validator.NotBlank(userForm.Email), "email", "Email can not be blank.")
+	userForm.CheckField(validator.NotBlank(userForm.Password), "password", "Password can not be blank.")
+	userForm.CheckField(validator.CheckUsername(userForm.Username), "username", "Username already exist.")
 
-	if strings.TrimSpace(lastName) == "" {
-		userForm.FieldErrors["lastName"] = "Last name can not be empty."
-	}
+	models.HashPassword(&password)
+	models.U.Password = password
 
-	if strings.TrimSpace(username) == "" {
-		userForm.FieldErrors["username"] = "Username can not be empty."
-	} else if models.CheckUsernameAvailability(username) == true {
-		userForm.FieldErrors["username"] = "Username already exist. select different username."
-
-	}
-
-	if strings.TrimSpace(email) == "" {
-		userForm.FieldErrors["email"] = "Email can not be empty."
-	}
-
-	if strings.TrimSpace(password) == "" {
-		userForm.FieldErrors["password"] = "Password can not be empty."
-	}
-
-	if len(userForm.FieldErrors) > 0 {
-		ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-
-		if err != nil {
-			ServerError(w, r, err)
-			return
-		}
-		err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
-		if err != nil {
-			ServerError(w, r, err)
-		}
-	} else {
-
+	if userForm.Valid() {
 		err = models.StoreCreateUser(&models.U)
 		if err != nil {
 			ServerError(w, r, err)
@@ -105,5 +76,21 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			ServerError(w, r, err)
 		}
+		userForm = UserForm{}
+
+	} else {
+		ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+		err = ts.ExecuteTemplate(w, "createAccount.html", userForm)
+		if err != nil {
+			ServerError(w, r, err)
+		}
+		userForm = UserForm{}
+
 	}
+
 }

@@ -1,20 +1,21 @@
 package validator
 
 import (
+	"serv-test/internal/models"
 	"slices"
 	"strings"
 	"unicode/utf8"
 )
 
-type validator struct {
+type Validator struct {
 	FieldErrors map[string]string
 }
 
-func (v *validator) Valid() bool {
+func (v *Validator) Valid() bool {
 	return len(v.FieldErrors) == 0
 }
 
-func (v *validator) AddFieldError(key, message string) {
+func (v *Validator) AddFieldError(key, message string) {
 	if v.FieldErrors == nil {
 		v.FieldErrors = make(map[string]string)
 	}
@@ -23,7 +24,7 @@ func (v *validator) AddFieldError(key, message string) {
 	}
 }
 
-func (v *validator) CheckField(ok bool, key, message string) {
+func (v *Validator) CheckField(ok bool, key, message string) {
 	if !ok {
 		v.AddFieldError(key, message)
 	}
@@ -39,4 +40,8 @@ func MaxChars(value string, n int) bool {
 
 func PermittedValue[T comparable](value T, permittedValues ...T) bool {
 	return slices.Contains(permittedValues, value)
+}
+
+func CheckUsername(username string) bool {
+	return !models.CheckUsernameAvailability(username)
 }
