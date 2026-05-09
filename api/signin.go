@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"serv-test/config"
 	"serv-test/internal/models"
-	"strings"
+	"serv-test/internal/validator"
 )
 
 func SignInHandler(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 type SigninForm struct {
-	FieldErrors map[string]string
+	validator.Validator
 }
 
 func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
@@ -41,20 +41,13 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 
-	signinForm := SigninForm{
+	var signinForm = SigninForm{}
 
-		FieldErrors: map[string]string{},
-	}
+	signinForm.CheckField(validator.NotBlank(username), "username", "Username can not be empty.")
 
-	if strings.TrimSpace(username) == "" {
-		signinForm.FieldErrors["username"] = "Username can not be empty."
-	}
+	signinForm.CheckField(validator.NotBlank(password), "password", "Password can not be empty.")
 
-	if strings.TrimSpace(password) == "" {
-		signinForm.FieldErrors["password"] = "Password can not be empty."
-	}
-
-	if len(signinForm.FieldErrors) > 0 {
+	if !signinForm.Valid() {
 		ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 		if err != nil {
 			ServerError(w, r, err)
