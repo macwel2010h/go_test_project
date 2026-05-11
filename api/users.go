@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"serv-test/config"
+	"serv-test/helpers"
 	"serv-test/internal/models"
 	"serv-test/internal/validator"
 )
@@ -25,10 +25,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Database config not configured", http.StatusInternalServerError)
 		return
 	}
-
-	err := r.ParseForm()
+	err := helpers.DecodeForm(r, &userForm)
 	if err != nil {
-		fmt.Print(err)
+		ClientError(w, http.StatusBadRequest)
 		return
 	}
 
@@ -37,12 +36,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	username := r.PostForm.Get("username")
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
-
-	err = config.App.FormDecoder.Decode(&userForm, r.PostForm)
-	if err != nil {
-		ClientError(w, http.StatusBadRequest)
-		return
-	}
 
 	models.U.FirstName = firstName
 	models.U.LastName = lastName
