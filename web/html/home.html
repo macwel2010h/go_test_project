@@ -29,24 +29,12 @@
             <form action="/create-post" method="POST">
               <div class="field">
                 <label for="post-title">Title</label>
-                <input
-                  type="text"
-                  id="post-title"
-                  name="title"
-                  placeholder="Enter a short post title"
-                  required
-                />
+                <input type="text" id="post-title" name="title" placeholder="Enter a short post title" required />
               </div>
 
               <div class="field">
                 <label for="post-content">Content</label>
-                <textarea
-                  id="post-content"
-                  name="content"
-                  rows="6"
-                  placeholder="Write your update here"
-                  required
-                ></textarea>
+                <textarea id="post-content" name="content" rows="6" placeholder="Write your update here" required></textarea>
               </div>
 
               <div class="post-actions">
@@ -58,14 +46,14 @@
           <section class="panel">
             <h3 class="feed-heading">Posts Feed</h3>
 
-            {{if .Feed.Posts}} {{range .Feed.Posts}}
+            {{with .Flash}}
+            <div class="post">{{.}}</div>
+            {{end}} {{if .Feed.Posts}} {{range .Feed.Posts}}
             <div class="post-list">
               <article class="post">
                 <h3>{{.Title}}</h3>
                 <p>{{.Content}}</p>
-                <p class="post-meta">
-                  Posted by {{.UserName}} at {{.Created_at.Format "Jan 2, 2006 3:04 PM"}}
-                </p>
+                <p class="post-meta">Posted by {{.UserName}} at {{.Created_at.Format "Jan 2, 2006 3:04 PM"}}</p>
               </article>
             </div>
             {{end}} {{else}}

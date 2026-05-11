@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"serv-test/config"
 	"serv-test/internal/models"
 )
@@ -12,6 +11,7 @@ type templateData struct {
 	Feed        *models.Posts
 	FieldErrors map[string]string
 	UserForm    any
+	Flash       string
 }
 
 var Data = templateData{
@@ -40,5 +40,5 @@ func PostFeedDisplay() {
 		}
 		Data.Feed.Posts = append(Data.Feed.Posts, post)
 	}
-	fmt.Printf("this is from getpost : %v", Data.Feed.Posts)
+
 }

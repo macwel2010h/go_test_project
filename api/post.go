@@ -14,11 +14,8 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	postTitle := r.PostForm.Get("title")
-	postContent := r.PostForm.Get("content")
-
-	models.P.Title = postTitle
-	models.P.Content = postContent
+	models.P.Title = r.PostForm.Get("title")
+	models.P.Content = r.PostForm.Get("content")
 
 	err = models.StoreCreatePost(&models.P)
 	if err != nil {

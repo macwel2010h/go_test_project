@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	handlers "serv-test/api"
+	"serv-test/config"
 	"serv-test/middlewares"
 	runServer "serv-test/server"
 )
@@ -12,14 +13,14 @@ func RoutHandlers() http.Handler {
 
 	mux.Handle("GET /web/", http.StripPrefix("/web", runServer.FileServer()))
 
-	mux.HandleFunc("GET /{$}", handlers.IndexHandler)
-	mux.HandleFunc("GET /signIn", handlers.SignInHandler)
-	mux.HandleFunc("GET /about", handlers.AboutHandler)
-	mux.HandleFunc("GET /create-account", handlers.CreateAccountHandler)
+	mux.Handle("GET /{$}", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.IndexHandler)))
+	mux.Handle("GET /signIn", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.SignInHandler)))
+	mux.Handle("GET /about", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.AboutHandler)))
+	mux.Handle("GET /create-account", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.CreateAccountHandler)))
 
-	mux.HandleFunc("POST /create-account", handlers.CreateUser)
-	mux.HandleFunc("POST /signIn", handlers.PostSignInHandler)
-	mux.HandleFunc("POST /create-post", handlers.PostHandler)
+	mux.Handle("POST /create-account", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.CreateUser)))
+	mux.Handle("POST /signIn", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.PostSignInHandler)))
+	mux.Handle("POST /create-post", config.App.SessionManager.LoadAndSave(http.HandlerFunc(handlers.PostHandler)))
 
 	return middlewares.LogRequest(middlewares.CommonHeaders(mux))
 }
