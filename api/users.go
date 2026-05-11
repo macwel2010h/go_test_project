@@ -31,18 +31,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	firstName := r.PostForm.Get("firstName")
-	lastName := r.PostForm.Get("lastName")
-	username := r.PostForm.Get("username")
-	email := r.PostForm.Get("email")
-	password := r.PostForm.Get("password")
+	models.U.FirstName = r.PostForm.Get("firstName")
+	models.U.LastName = r.PostForm.Get("lastName")
+	models.U.Username = r.PostForm.Get("username")
+	models.U.Email = r.PostForm.Get("email")
+	models.U.Password = r.PostForm.Get("password")
 
-	models.U.FirstName = firstName
-	models.U.LastName = lastName
-	models.U.Username = username
-	models.U.Email = email
-	models.HashPassword(&password)
-	models.U.Password = password
+	models.HashPassword(&models.U.Password)
 
 	userForm.CheckField(validator.NotBlank(userForm.FirstName), "firstName", "First name can not be blank.")
 	userForm.CheckField(validator.NotBlank(userForm.LastName), "lastName", "Last name can not be blank.")
