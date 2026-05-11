@@ -10,12 +10,12 @@ import (
 )
 
 type UserForm struct {
-	FirstName string
-	LastName  string
-	Username  string
-	Email     string
-	Password  string
-	validator.Validator
+	FirstName           string `form:"firstName"`
+	LastName            string `form:"lastName"`
+	Username            string `form:"username"`
+	Email               string `form:"email"`
+	Password            string `form:"password"`
+	validator.Validator `form:"-"`
 }
 
 var userForm = UserForm{}
@@ -38,16 +38,18 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	email := r.PostForm.Get("email")
 	password := r.PostForm.Get("password")
 
+	err = config.App.FormDecoder.Decode(&userForm, r.PostForm)
+	if err != nil {
+		ClientError(w, http.StatusBadRequest)
+		return
+	}
+
 	models.U.FirstName = firstName
 	models.U.LastName = lastName
 	models.U.Username = username
 	models.U.Email = email
-
-	userForm.FirstName = firstName
-	userForm.LastName = lastName
-	userForm.Username = username
-	userForm.Email = email
-	userForm.Password = password
+	models.HashPassword(&password)
+	models.U.Password = password
 
 	userForm.CheckField(validator.NotBlank(userForm.FirstName), "firstName", "First name can not be blank.")
 	userForm.CheckField(validator.NotBlank(userForm.LastName), "lastName", "Last name can not be blank.")
@@ -55,9 +57,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	userForm.CheckField(validator.NotBlank(userForm.Email), "email", "Email can not be blank.")
 	userForm.CheckField(validator.NotBlank(userForm.Password), "password", "Password can not be blank.")
 	userForm.CheckField(validator.CheckUsername(userForm.Username), "username", "Username already exist.")
-
-	models.HashPassword(&password)
-	models.U.Password = password
 
 	if userForm.Valid() {
 		err = models.StoreCreateUser(&models.U)

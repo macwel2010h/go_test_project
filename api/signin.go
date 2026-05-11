@@ -44,7 +44,6 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 	var signinForm = SigninForm{}
 
 	signinForm.CheckField(validator.NotBlank(username), "username", "Username can not be empty.")
-
 	signinForm.CheckField(validator.NotBlank(password), "password", "Password can not be empty.")
 
 	if !signinForm.Valid() {

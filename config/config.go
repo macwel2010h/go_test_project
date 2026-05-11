@@ -13,11 +13,12 @@ type Application struct {
 	Logger         *slog.Logger
 	DB             *sql.DB
 	SessionManager *scs.SessionManager
-	formDecoder    *form.Decoder
+	FormDecoder    *form.Decoder
 }
 
 var App = &Application{
 	Logger: logger.Logger,
 	// DB is initialized in database.go DatabaseConnect function
 	SessionManager: scs.New(),
+	FormDecoder:    form.NewDecoder(),
 }
