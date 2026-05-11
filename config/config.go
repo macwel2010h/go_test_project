@@ -6,12 +6,14 @@ import (
 	logger "serv-test/log"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/go-playground/form/v4"
 )
 
 type Application struct {
 	Logger         *slog.Logger
 	DB             *sql.DB
 	SessionManager *scs.SessionManager
+	formDecoder    *form.Decoder
 }
 
 var App = &Application{

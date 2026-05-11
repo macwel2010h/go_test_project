@@ -9,4 +9,7 @@ require (
 	golang.org/x/crypto v0.50.0
 )
 
-require filippo.io/edwards25519 v1.2.0 // indirect
+require (
+	filippo.io/edwards25519 v1.2.0 // indirect
+	github.com/go-playground/form/v4 v4.3.0 // indirect
+)
