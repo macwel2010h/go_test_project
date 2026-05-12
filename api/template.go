@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"net/http"
 	"serv-test/config"
 	"serv-test/internal/models"
 )
@@ -20,7 +21,7 @@ var Data = templateData{
 	Feed: &models.Ps,
 }
 
-func PostFeedDisplay() {
+func PostFeedDisplay(w http.ResponseWriter, r *http.Request) {
 
 	Data.Feed.Posts = nil
 

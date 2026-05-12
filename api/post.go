@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
+	"serv-test/config"
 	"serv-test/internal/models"
 )
 
@@ -22,17 +22,9 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
+	config.App.SessionManager.Put(r.Context(), "flash", "Post created successfully.")
 
-	PostFeedDisplay()
+	PostFeedDisplay(w, r)
 
-	ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-	if err != nil {
-		ServerError(w, r, err)
-		return
-	}
-	err = ts.ExecuteTemplate(w, "home.html", Data)
-	if err != nil {
-		ServerError(w, r, err)
-	}
-
+	http.Redirect(w, r, "/home", 303)
 }

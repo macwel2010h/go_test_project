@@ -1,9 +1,11 @@
 app-up : MySQL	
-	sleep 10
+	sleep 7
 	go mod tidy
 	go run .
 
 MySQL : Dockerfile docker-compose.yml database_init.sql
+	open -a Docker
+	sleep 2
 	docker compose build mysql
 	docker compose up -d
 

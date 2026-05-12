@@ -16,5 +16,5 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		ServerError(w, r, err)
 	}
-	return
+
 }

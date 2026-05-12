@@ -23,6 +23,7 @@ func RoutHandlers() http.Handler {
 	mux.Handle("GET /about", SessionMan.ThenFunc(handlers.AboutHandler))
 	mux.Handle("GET /create-account", SessionMan.ThenFunc(handlers.CreateAccountHandler))
 	mux.Handle("GET /welcome", SessionMan.ThenFunc(handlers.WelcomeHandler))
+	mux.Handle("GET /home", SessionMan.ThenFunc(handlers.HomeHandler))
 
 	mux.Handle("POST /create-account", SessionMan.ThenFunc(handlers.CreateUser))
 	mux.Handle("POST /signIn", SessionMan.ThenFunc(handlers.PostSignInHandler))

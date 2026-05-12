@@ -70,19 +70,12 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 				ServerError(w, r, err)
 			}
 			return
-		}
+		} else {
 
-		models.P.UserName = username
-		PostFeedDisplay()
+			models.P.UserName = username
+			PostFeedDisplay(w, r)
 
-		ts, err := template.ParseFiles("web/html/home.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-		if err != nil {
-			ServerError(w, r, err)
-			return
-		}
-		err = ts.ExecuteTemplate(w, "home.html", Data)
-		if err != nil {
-			ServerError(w, r, err)
+			http.Redirect(w, r, "/home", 303)
 		}
 	}
 }
