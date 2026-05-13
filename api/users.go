@@ -54,7 +54,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.Redirect(w, r, "/welcome", 303)
-		userForm = UserForm{}
 
 	} else {
 		ts, err := template.ParseFiles("web/html/createAccount.html", "web/html/t_navbar.html", "web/html/t_logo.html")

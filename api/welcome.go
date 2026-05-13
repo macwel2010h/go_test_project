@@ -12,9 +12,11 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 		ServerError(w, r, err)
 		return
 	}
+
 	err = ts.ExecuteTemplate(w, "welcome.html", userForm)
 	if err != nil {
 		ServerError(w, r, err)
 	}
 
+	userForm = UserForm{}
 }

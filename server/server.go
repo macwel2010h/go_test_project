@@ -3,20 +3,24 @@ package runServer
 import (
 	"fmt"
 	"log"
+	"log/slog"
 	"net"
 	"net/http"
+	"serv-test/config"
 	logger "serv-test/log"
 	"time"
 )
 
-var s = http.Server{
-	Addr:         ":8001",
-	ReadTimeout:  5 * time.Second,
-	WriteTimeout: 10 * time.Second,
-	IdleTimeout:  120 * time.Second,
-}
-
 func RunServer(handler http.Handler) {
+	var s = http.Server{
+		Addr:         ":8001",
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  120 * time.Second,
+		Handler:      handler,
+		ErrorLog:     slog.NewLogLogger(logger.Logger.Handler(), slog.LevelError),
+		TLSConfig:    config.TlsConfig,
+	}
 	logger.Logger.Info("Starting Server...")
 	listner, err := net.Listen("tcp", s.Addr)
 	if err != nil {
@@ -24,7 +28,7 @@ func RunServer(handler http.Handler) {
 	}
 	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
 
-	err = http.Serve(listner, handler)
+	err = s.ServeTLS(listner, "tls/cert.pem", "tls/key.pem")
 	if err != nil {
 
 		fmt.Printf("An error occured while starting the Server : %v\n", err)

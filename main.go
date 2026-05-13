@@ -3,6 +3,7 @@ package main
 import (
 	"serv-test/database"
 	runServer "serv-test/server"
+
 	"time"
 
 	"serv-test/config"
@@ -17,7 +18,6 @@ func main() {
 	config.App.SessionManager.Store = mysqlstore.New(config.App.DB)
 	config.App.SessionManager.Lifetime = 12 * time.Hour
 
-	mux := RoutHandlers()
-	runServer.RunServer(mux)
+	runServer.RunServer(RouteHandlers())
 
 }

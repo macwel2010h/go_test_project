@@ -10,7 +10,7 @@ import (
 	"github.com/justinas/alice"
 )
 
-func RoutHandlers() http.Handler {
+func RouteHandlers() http.Handler {
 
 	mux := http.NewServeMux()
 

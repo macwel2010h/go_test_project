@@ -1,6 +1,7 @@
 package config
 
 import (
+	"crypto/tls"
 	"database/sql"
 	"log/slog"
 	logger "serv-test/log"
@@ -21,4 +22,8 @@ var App = &Application{
 	// DB is initialized in database.go DatabaseConnect function
 	SessionManager: scs.New(),
 	FormDecoder:    form.NewDecoder(),
+}
+
+var TlsConfig = &tls.Config{
+	CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
 }
