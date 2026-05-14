@@ -1,3 +1,4 @@
 db/
 .vscode/
 tls/
+.DS_Store

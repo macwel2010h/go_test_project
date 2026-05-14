@@ -12,10 +12,10 @@ MySQL : Dockerfile docker-compose.yml database_init.sql
 reset-db:
 	docker compose down
 	rm -rf ./db
-	docker rmi go_test_mysql_image:latest
+	docker rmi saturn_mysql_image:latest
 	echo "Database wiped! Run 'make app-up' to rebuild and initialize."
 
 reset-docker:
-	docker stop go_test_mysql_container
-	docker rm go_test_mysql_container
-	docker rmi go_test_mysql_image:latest
+	docker stop saturn_mysql_container
+	docker rm saturn_mysql_container
+	docker rmi saturn_mysql_image:latest

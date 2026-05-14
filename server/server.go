@@ -26,7 +26,7 @@ func RunServer(handler http.Handler) {
 	if err != nil {
 		fmt.Printf("Can not connect to the server.Make sure the port:%s is not in use.", s.Addr)
 	}
-	log.Printf("The server stareted. Please visit http://localhost%s", s.Addr)
+	log.Printf("The server stareted. Please visit https://localhost%s", s.Addr)
 
 	err = s.ServeTLS(listner, "tls/cert.pem", "tls/key.pem")
 	if err != nil {

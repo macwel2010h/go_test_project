@@ -12,7 +12,7 @@ import (
 
 func DatabaseConnect() {
 
-	db, err := sql.Open("mysql", "root:abcd@1234@tcp(localhost:3306)/go_test_project_db?parseTime=true&loc=Local")
+	db, err := sql.Open("mysql", "root:abcd@1234@tcp(localhost:3306)/saturn_db?parseTime=true&loc=Local")
 	if err != nil {
 		panic(err.Error())
 	}

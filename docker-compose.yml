@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: go_test_mysql_image
-    container_name: go_test_mysql_container
+    image: saturn_mysql_image
+    container_name: saturn_mysql_container
   
 
     restart: always
@@ -14,7 +14,7 @@ services:
 
     environment:
       MYSQL_ROOT_PASSWORD: abcd@1234
-      MYSQL_DATABASE: go_test_project_db
+      MYSQL_DATABASE: saturn_db
 
     ports:
       - "3306:3306"

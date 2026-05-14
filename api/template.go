@@ -7,12 +7,13 @@ import (
 )
 
 type templateData struct {
-	User        *models.User
-	Post        *models.Post
-	Feed        *models.Posts
-	FieldErrors map[string]string
-	UserForm    any
-	Flash       string
+	User            *models.User
+	Post            *models.Post
+	Feed            *models.Posts
+	FieldErrors     map[string]string
+	UserForm        any
+	Flash           string
+	IsAuthenticated bool
 }
 
 var Data = templateData{

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS go_test_project_db;
-USE go_test_project_db;
+CREATE DATABASE IF NOT EXISTS saturn_db;
+USE saturn_db;
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
