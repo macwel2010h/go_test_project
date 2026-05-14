@@ -27,6 +27,8 @@ type SigninForm struct {
 }
 
 func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
+	var um = models.UserModel{}
+
 	if config.App.DB == nil {
 		http.Error(w, "Database config not configured", http.StatusInternalServerError)
 		return
@@ -58,7 +60,7 @@ func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 
-		models.U, err = models.CheckUserInDatabase(username, password)
+		_, err := um.CheckUserInDatabase(username, password)
 		if err != nil {
 			ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 			if err != nil {

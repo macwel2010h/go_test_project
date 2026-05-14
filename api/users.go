@@ -31,13 +31,16 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	models.U.FirstName = r.PostForm.Get("firstName")
-	models.U.LastName = r.PostForm.Get("lastName")
-	models.U.Username = r.PostForm.Get("username")
-	models.U.Email = r.PostForm.Get("email")
-	models.U.Password = r.PostForm.Get("password")
+	var u = models.User{}
+	var um = models.UserModel{}
 
-	models.HashPassword(&models.U.Password)
+	u.FirstName = r.PostForm.Get("firstName")
+	u.LastName = r.PostForm.Get("lastName")
+	u.Username = r.PostForm.Get("username")
+	u.Email = r.PostForm.Get("email")
+	u.Password = r.PostForm.Get("password")
+
+	models.HashPassword(&u.Password)
 
 	userForm.CheckField(validator.NotBlank(userForm.FirstName), "firstName", "First name can not be blank.")
 	userForm.CheckField(validator.NotBlank(userForm.LastName), "lastName", "Last name can not be blank.")
@@ -47,7 +50,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	userForm.CheckField(validator.CheckUsername(userForm.Username), "username", "Username already exist.")
 
 	if userForm.Valid() {
-		err = models.StoreCreateUser(&models.U)
+		err = um.StoreCreateUser(u)
 		if err != nil {
 			ServerError(w, r, err)
 			return

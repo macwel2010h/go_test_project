@@ -1,7 +1,7 @@
 package models
 
 import (
-	"serv-test/config"
+	"database/sql"
 	"time"
 )
 
@@ -13,19 +13,21 @@ type Post struct {
 	Created_at time.Time
 }
 
+type PostModel struct {
+	DB *sql.DB
+}
+
 type Posts struct {
 	Posts []Post
 }
 
 var Ps = Posts{}
 
-var P = Post{}
-
-func StoreCreatePost(p *Post) error {
+func (pm *PostModel) StoreCreatePost(p *Post) error {
 
 	stmt := ` INSERT INTO posts (username, title, content) VALUES(?,?,?)`
 
-	_, err := config.App.DB.Exec(stmt, p.UserName, p.Title, p.Content)
+	_, err := pm.DB.Exec(stmt, p.UserName, p.Title, p.Content)
 	if err != nil {
 		return err
 	}

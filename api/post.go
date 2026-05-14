@@ -8,16 +8,19 @@ import (
 )
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
+	var p = models.Post{}
+	var pm = models.PostModel{}
+
 	err := r.ParseForm()
 	if err != nil {
 		fmt.Print(err)
 		return
 	}
 
-	models.P.Title = r.PostForm.Get("title")
-	models.P.Content = r.PostForm.Get("content")
+	p.Title = r.PostForm.Get("title")
+	p.Content = r.PostForm.Get("content")
 
-	err = models.StoreCreatePost(&models.P)
+	err = pm.StoreCreatePost(&p)
 	if err != nil {
 		ServerError(w, r, err)
 		return
