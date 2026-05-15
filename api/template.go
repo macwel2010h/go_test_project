@@ -17,9 +17,9 @@ type templateData struct {
 }
 
 var Data = templateData{
-	User: &models.U,
-	Post: &models.P,
-	Feed: &models.Ps,
+	User: &models.User{},
+	Post: &models.Post{},
+	Feed: &models.Posts{},
 }
 
 func PostFeedDisplay(w http.ResponseWriter, r *http.Request) {

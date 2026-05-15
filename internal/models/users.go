@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"errors"
+	"serv-test/config"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -57,9 +58,10 @@ func (um *UserModel) CheckUserInDatabase(username, password string) (User, error
 	return u, nil
 }
 
-func (um *UserModel) CheckUsernameAvailability(usernameForm string) bool {
+func CheckUsernameAvailability(usernameForm string) bool {
 	stmt := `SELECT username FROM users`
 
+	um := UserModel{DB: config.App.DB}
 	usernamerows, err := um.DB.Query(stmt)
 	if err != nil {
 		return false
