@@ -26,58 +26,60 @@ type SigninForm struct {
 	validator.Validator
 }
 
-func PostSignInHandler(w http.ResponseWriter, r *http.Request) {
-	var um = models.UserModel{}
+func PostSignInHandler(p *models.Post) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var um = models.UserModel{}
 
-	if config.App.DB == nil {
-		http.Error(w, "Database config not configured", http.StatusInternalServerError)
-		return
-	}
-
-	err := r.ParseForm()
-	if err != nil {
-		fmt.Print(err)
-		return
-	}
-
-	username := r.PostForm.Get("username")
-	password := r.PostForm.Get("password")
-
-	var signinForm = SigninForm{}
-
-	signinForm.CheckField(validator.NotBlank(username), "username", "Username can not be empty.")
-	signinForm.CheckField(validator.NotBlank(password), "password", "Password can not be empty.")
-
-	if !signinForm.Valid() {
-		ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html", "web/html/t_logo.html")
-		if err != nil {
-			ServerError(w, r, err)
+		if config.App.DB == nil {
+			http.Error(w, "Database config not configured", http.StatusInternalServerError)
 			return
 		}
-		err = ts.ExecuteTemplate(w, "signIn.html", signinForm)
-		if err != nil {
-			ServerError(w, r, err)
-		}
-	} else {
 
-		_, err := um.CheckUserInDatabase(username, password)
+		err := r.ParseForm()
 		if err != nil {
-			ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+			fmt.Print(err)
+			return
+		}
+
+		username := r.PostForm.Get("username")
+		password := r.PostForm.Get("password")
+
+		var signinForm = SigninForm{}
+
+		signinForm.CheckField(validator.NotBlank(username), "username", "Username can not be empty.")
+		signinForm.CheckField(validator.NotBlank(password), "password", "Password can not be empty.")
+
+		if !signinForm.Valid() {
+			ts, err := template.ParseFiles("web/html/signIn.html", "web/html/t_navbar.html", "web/html/t_logo.html")
 			if err != nil {
 				ServerError(w, r, err)
 				return
 			}
-			err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
+			err = ts.ExecuteTemplate(w, "signIn.html", signinForm)
 			if err != nil {
 				ServerError(w, r, err)
 			}
-			return
 		} else {
 
-			models.P.UserName = username
-			PostFeedDisplay(w, r)
+			_, err := um.CheckUserInDatabase(username, password)
+			if err != nil {
+				ts, err := template.ParseFiles("web/html/wrongLoginRedirect.html", "web/html/t_navbar.html", "web/html/t_logo.html")
+				if err != nil {
+					ServerError(w, r, err)
+					return
+				}
+				err = ts.ExecuteTemplate(w, "wrongLoginRedirect.html", nil)
+				if err != nil {
+					ServerError(w, r, err)
+				}
+				return
+			} else {
 
-			http.Redirect(w, r, "/home", 303)
+				p.UserName = username
+				PostFeedDisplay(w, r)
+
+				http.Redirect(w, r, "/home", 303)
+			}
 		}
 	}
 }

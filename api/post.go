@@ -7,27 +7,27 @@ import (
 	"serv-test/internal/models"
 )
 
-func PostHandler(w http.ResponseWriter, r *http.Request) {
-	var p = models.Post{}
-	var pm = models.PostModel{}
+func PostHandler(p *models.Post, pm *models.PostModel) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
 
-	err := r.ParseForm()
-	if err != nil {
-		fmt.Print(err)
-		return
+		err := r.ParseForm()
+		if err != nil {
+			fmt.Print(err)
+			return
+		}
+
+		p.Title = r.PostForm.Get("title")
+		p.Content = r.PostForm.Get("content")
+
+		err = models.StoreCreatePost(p)
+		if err != nil {
+			ServerError(w, r, err)
+			return
+		}
+		config.App.SessionManager.Put(r.Context(), "flash", "Post created successfully.")
+
+		PostFeedDisplay(w, r)
+
+		http.Redirect(w, r, "/home", 303)
 	}
-
-	p.Title = r.PostForm.Get("title")
-	p.Content = r.PostForm.Get("content")
-
-	err = pm.StoreCreatePost(&p)
-	if err != nil {
-		ServerError(w, r, err)
-		return
-	}
-	config.App.SessionManager.Put(r.Context(), "flash", "Post created successfully.")
-
-	PostFeedDisplay(w, r)
-
-	http.Redirect(w, r, "/home", 303)
 }

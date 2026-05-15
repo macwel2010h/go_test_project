@@ -21,9 +21,11 @@ type Posts struct {
 	Posts []Post
 }
 
+var p = Post{}
+var pm = PostModel{}
 var Ps = Posts{}
 
-func (pm *PostModel) StoreCreatePost(p *Post) error {
+func StoreCreatePost(p *Post) error {
 
 	stmt := ` INSERT INTO posts (username, title, content) VALUES(?,?,?)`
 
