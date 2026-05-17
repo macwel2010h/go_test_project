@@ -22,8 +22,10 @@ type UserModel struct {
 	DB *sql.DB
 }
 
-func (um *UserModel) StoreCreateUser(u User) error {
-
+func (um *UserModel) StoreCreateUser(u *User) error {
+	if um.DB == nil {
+		um.DB = config.App.DB
+	}
 	stmt := `INSERT INTO users (firstName, lastName, username, email, password)
 	VALUES(?,?,?,?,?)`
 

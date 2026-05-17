@@ -21,26 +21,19 @@ type UserForm struct {
 var userForm = UserForm{}
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
+
 	if config.App.DB == nil {
 		http.Error(w, "Database config not configured", http.StatusInternalServerError)
 		return
 	}
+
+	um := models.UserModel{DB: config.App.DB}
+
 	err := helpers.DecodeForm(r, &userForm)
 	if err != nil {
 		ClientError(w, http.StatusBadRequest)
 		return
 	}
-
-	var u = models.User{}
-	var um = models.UserModel{}
-
-	u.FirstName = r.PostForm.Get("firstName")
-	u.LastName = r.PostForm.Get("lastName")
-	u.Username = r.PostForm.Get("username")
-	u.Email = r.PostForm.Get("email")
-	u.Password = r.PostForm.Get("password")
-
-	models.HashPassword(&u.Password)
 
 	userForm.CheckField(validator.NotBlank(userForm.FirstName), "firstName", "First name can not be blank.")
 	userForm.CheckField(validator.NotBlank(userForm.LastName), "lastName", "Last name can not be blank.")
@@ -50,7 +43,20 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	userForm.CheckField(validator.CheckUsername(userForm.Username), "username", "Username already exist.")
 
 	if userForm.Valid() {
-		err = um.StoreCreateUser(u)
+		// convert handler form to models.User
+		newUser := models.User{
+			FirstName: userForm.FirstName,
+			LastName:  userForm.LastName,
+			Username:  userForm.Username,
+			Email:     userForm.Email,
+			Password:  userForm.Password,
+		}
+
+		// optionally hash the password before storing:
+		// err = models.HashPassword(&newUser.Password)
+		// if err != nil { ServerError(w, r, err); return }
+
+		err = um.StoreCreateUser(&newUser)
 		if err != nil {
 			ServerError(w, r, err)
 			return
